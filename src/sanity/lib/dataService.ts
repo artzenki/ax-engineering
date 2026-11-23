@@ -1,4 +1,5 @@
 import { client } from './client'
+import { projectId } from '../env'
 import {
   projectsQuery,
   projectBySlugQuery,
@@ -18,7 +19,7 @@ import { getImageUrl } from './image'
 
 export async function getAllProjects(): Promise<ProjectItem[]> {
   try {
-    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== 'demo-project-id') {
+    if (projectId && projectId !== 'demo-project-id') {
       const sanityProjects = await client.fetch(projectsQuery)
       if (sanityProjects && sanityProjects.length > 0) {
         return sanityProjects.map((p: any) => ({
@@ -54,7 +55,7 @@ export async function getAllProjects(): Promise<ProjectItem[]> {
 
 export async function getProjectBySlug(slug: string): Promise<ProjectItem | null> {
   try {
-    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== 'demo-project-id') {
+    if (projectId && projectId !== 'demo-project-id') {
       const p = await client.fetch(projectBySlugQuery, { slug })
       if (p) {
         return {
@@ -98,7 +99,7 @@ export async function getFeaturedProjects(): Promise<ProjectItem[]> {
 
 export async function getServices(): Promise<ServiceItem[]> {
   try {
-    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== 'demo-project-id') {
+    if (projectId && projectId !== 'demo-project-id') {
       const sanityServices = await client.fetch(servicesQuery)
       if (sanityServices && sanityServices.length > 0) {
         return sanityServices.map((s: any) => ({
@@ -118,7 +119,7 @@ export async function getServices(): Promise<ServiceItem[]> {
 
 export async function getTeamMembers(): Promise<TeamMemberItem[]> {
   try {
-    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_PROJECT_ID !== 'demo-project-id') {
+    if (projectId && projectId !== 'demo-project-id') {
       const sanityTeam = await client.fetch(teamMembersQuery)
       if (sanityTeam && sanityTeam.length > 0) {
         return sanityTeam.map((m: any) => ({
@@ -135,4 +136,5 @@ export async function getTeamMembers(): Promise<TeamMemberItem[]> {
   }
   return TEAM_MEMBERS_DATA
 }
+
 
