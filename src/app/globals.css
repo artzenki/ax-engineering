@@ -1,37 +1,35 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: #0B0B0C;
-    --foreground: #F5F5F7;
-    --accent-gold: #C5A880;
-    --accent-gold-hover: #D8BD96;
-    --surface-dark: #121215;
-    --surface-border: rgba(255, 255, 255, 0.08);
-  }
+:root {
+  --background: #0B0B0C;
+  --foreground: #F5F5F7;
+  --accent-gold: #C5A880;
+  --accent-gold-hover: #D8BD96;
+  --surface-dark: #121215;
+  --surface-border: rgba(255, 255, 255, 0.08);
+}
 
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-  }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
-  /* Custom Luxury Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0b0b0c;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #2a2a2e;
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #c5a880;
-  }
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0b0c;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c5a880;
 }
 
 /* Editorial Serif Utility */

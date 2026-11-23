@@ -4,16 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@sanity/image-url": "^2.2.0",
+    "@tailwindcss/postcss": "^4.3.5",
     "@types/styled-components": "^5.1.36",
     "lucide-react": "^1.78.0",
     "next": "16.4.6",
     "next-sanity": "^13.5.1",
+    "postcss": "^8.5.33",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "sanity": "^6.24.0",
