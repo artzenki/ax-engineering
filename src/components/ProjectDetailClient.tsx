@@ -172,20 +172,20 @@ export default function ProjectDetailClient({
             {/* Action Buttons: Kërko Ofertë & Shiko Galerinë */}
             <div className="flex flex-wrap items-center gap-3">
               <Link
-                href="/contact"
-                className="group inline-flex items-center space-x-2.5 pl-5 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/30"
+                href="/kerko-oferte"
+                className="group inline-flex items-center space-x-2.5 pl-5 pr-2 py-1.5 bg-[#D9222A] hover:bg-white text-white hover:text-[#D9222A] border border-[#D9222A] hover:border-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/30 hover:scale-[1.02]"
               >
                 <span>{td.requestQuoteBtn}</span>
-                <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                <span className="w-5 h-5 rounded-full bg-black/20 group-hover:bg-[#D9222A]/10 flex items-center justify-center text-white group-hover:text-[#D9222A] transition-colors">
+                  <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:-rotate-45" />
                 </span>
               </Link>
 
               <a
                 href="#gallery"
-                className="group inline-flex items-center space-x-2 px-5 py-2 border border-white/30 hover:border-white text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-black/40 hover:bg-black/60 backdrop-blur-md"
+                className="group inline-flex items-center space-x-2 px-5 py-2 border border-white/30 hover:border-[#D9222A] text-white hover:text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-black/40 hover:bg-[#D9222A] backdrop-blur-md hover:scale-[1.02]"
               >
-                <Images className="w-3.5 h-3.5 text-[#FF4455]" />
+                <Images className="w-3.5 h-3.5 text-[#FF4455] group-hover:text-white transition-colors" />
                 <span>{td.viewGalleryBtn}</span>
               </a>
             </div>
@@ -193,67 +193,70 @@ export default function ProjectDetailClient({
         </div>
 
         {/* 2. QUICK FACTS LIQUID GLASS CARDS MATRIX (Kate, Square Meters, etc.) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full mt-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
-            {/* Floors / Kate */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
-              <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
-                <Layers className="w-4 h-4 text-[#FF4455]" />
-                <span>{td.floors}</span>
+        {project.showSpecsSection !== false && (
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full mt-12">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+              {/* Floors / Kate */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
+                <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
+                  <Layers className="w-4 h-4 text-[#FF4455]" />
+                  <span>{td.floors}</span>
+                </div>
+                <p className="font-display text-xl sm:text-2xl font-normal text-white">
+                  {project.floors || 'P + 2'}
+                </p>
               </div>
-              <p className="font-display text-xl sm:text-2xl font-normal text-white">
-                {project.floors || 'P + 2'}
-              </p>
-            </div>
 
-            {/* Square Meters / Sipërfaqja */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
-              <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
-                <Maximize2 className="w-4 h-4 text-[#FF4455]" />
-                <span>{td.surfaceArea}</span>
+              {/* Square Meters / Sipërfaqja */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
+                <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
+                  <Maximize2 className="w-4 h-4 text-[#FF4455]" />
+                  <span>{td.surfaceArea}</span>
+                </div>
+                <p className="font-display text-xl sm:text-2xl font-normal text-white">
+                  {project.area || '750 m²'}
+                </p>
               </div>
-              <p className="font-display text-xl sm:text-2xl font-normal text-white">
-                {project.area || '750 m²'}
-              </p>
-            </div>
 
-            {/* Typology / Units */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
-              <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
-                <Building2 className="w-4 h-4 text-[#FF4455]" />
-                <span>{td.typology}</span>
+              {/* Typology / Units */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
+                <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
+                  <Building2 className="w-4 h-4 text-[#FF4455]" />
+                  <span>{td.typology}</span>
+                </div>
+                <p className="font-display text-xs sm:text-sm md:text-base font-normal text-white break-words leading-snug">
+                  {project.apartments || project.client || 'Rezidencë Private'}
+                </p>
               </div>
-              <p className="font-display text-xs sm:text-sm md:text-base font-normal text-white break-words leading-snug">
-                {project.apartments || project.client || 'Rezidencë Private'}
-              </p>
-            </div>
 
-            {/* Parking Spaces */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
-              <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
-                <Car className="w-4 h-4 text-[#FF4455]" />
-                <span>{td.parking}</span>
+              {/* Parking Spaces */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-white/30 transition-all shadow-xl">
+                <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
+                  <Car className="w-4 h-4 text-[#FF4455]" />
+                  <span>{td.parking}</span>
+                </div>
+                <p className="font-display text-xs sm:text-sm md:text-base font-normal text-white break-words leading-snug">
+                  {project.parkingSpaces || '2 - 4 Garazhe'}
+                </p>
               </div>
-              <p className="font-display text-xs sm:text-sm md:text-base font-normal text-white break-words leading-snug">
-                {project.parkingSpaces || '2 - 4 Garazhe'}
-              </p>
-            </div>
 
-            {/* Handover / Year */}
-            <div className="col-span-2 sm:col-span-1 p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-[#D9222A]/50 transition-all shadow-xl">
-              <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
-                <Calendar className="w-4 h-4 text-[#FF4455]" />
-                <span>{td.deliveryYear}</span>
+              {/* Handover / Year */}
+              <div className="col-span-2 sm:col-span-1 p-4 sm:p-5 rounded-2xl bg-black/55 backdrop-blur-xl border border-white/15 hover:border-[#D9222A]/50 transition-all shadow-xl">
+                <div className="flex items-center space-x-2 text-[11px] font-normal uppercase tracking-wider text-white/70 mb-2">
+                  <Calendar className="w-4 h-4 text-[#FF4455]" />
+                  <span>{td.deliveryYear}</span>
+                </div>
+                <p className="font-display text-xl sm:text-2xl font-normal text-[#FF4455]">
+                  {project.expectedCompletion || project.year || '2024 - 2025'}
+                </p>
               </div>
-              <p className="font-display text-xl sm:text-2xl font-normal text-[#FF4455]">
-                {project.expectedCompletion || project.year || '2024 - 2025'}
-              </p>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* 3. NDJEKJA E PUNIMEVE (CONSTRUCTION PROGRESS TRACKING SECTION) */}
+      {project.showProgressSection !== false && (project.isUnderConstruction || project.progressPercent !== undefined) && (
       <section className="py-20 md:py-24 max-w-7xl mx-auto px-6 md:px-12">
         <div className="p-7 sm:p-10 md:p-12 rounded-3xl bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/10 shadow-xl relative overflow-hidden">
           {/* Ambient blur inside the card */}
@@ -382,12 +385,13 @@ export default function ProjectDetailClient({
           </div>
         </div>
       </section>
+      )}
 
       {/* 4. ARCHITECTURAL CONCEPT & ENGINEERING SCOPE SPLIT */}
       <section className="py-12 max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className={`grid grid-cols-1 ${project.showServicesScope !== false && pServices.length > 0 ? 'lg:grid-cols-12' : 'max-w-4xl'} gap-12 lg:gap-16 items-start`}>
           {/* Narrative Left */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className={`${project.showServicesScope !== false && pServices.length > 0 ? 'lg:col-span-7' : 'w-full'} space-y-6`}>
             <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] block font-normal">
               {td.overviewTag}
             </span>
@@ -410,40 +414,43 @@ export default function ProjectDetailClient({
           </div>
 
           {/* Scope and Services Provided Right */}
-          <div className="lg:col-span-5 p-7 sm:p-9 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/10 space-y-6 rounded-2xl shadow-sm">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D9222A] block font-normal">
-              {td.servicesScopeTag}
-            </span>
-            <h3 className="font-display text-xl sm:text-2xl text-stone-900 dark:text-white font-normal">
-              {td.servicesScopeTitle}
-            </h3>
+          {project.showServicesScope !== false && pServices.length > 0 && (
+            <div className="lg:col-span-5 p-7 sm:p-9 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/10 space-y-6 rounded-2xl shadow-sm">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#D9222A] block font-normal">
+                {td.servicesScopeTag}
+              </span>
+              <h3 className="font-display text-xl sm:text-2xl text-stone-900 dark:text-white font-normal">
+                {td.servicesScopeTitle}
+              </h3>
 
-            <ul className="space-y-3.5">
-              {pServices.map((srv, idx) => (
-                <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-normal">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D9222A] mt-2 shrink-0" />
-                  <span>{srv}</span>
-                </li>
-              ))}
-            </ul>
+              <ul className="space-y-3.5">
+                {pServices.map((srv, idx) => (
+                  <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-normal">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D9222A] mt-2 shrink-0" />
+                    <span>{srv}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <div className="pt-6 border-t border-stone-200 dark:border-white/10">
-              <Link
-                href="/contact"
-                className="group w-full py-2.5 pl-5 pr-2 bg-[#D9222A] hover:bg-[#F03542] text-white font-normal text-[12px] md:text-[13px] rounded-full flex items-center justify-between transition-all shadow-lg shadow-[#D9222A]/20"
-              >
-                <span>{td.requestQuoteBtn}</span>
-                <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                </span>
-              </Link>
+              <div className="pt-6 border-t border-stone-200 dark:border-white/10">
+                <Link
+                  href="/kerko-oferte"
+                  className="group w-full py-2.5 pl-5 pr-2 bg-[#D9222A] hover:bg-stone-900 text-white font-normal text-[12px] md:text-[13px] rounded-full flex items-center justify-between transition-all shadow-lg shadow-[#D9222A]/20"
+                >
+                  <span>{td.requestQuoteBtn}</span>
+                  <span className="w-5 h-5 rounded-full bg-black/20 group-hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                    <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:-rotate-45" />
+                  </span>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
       {/* 5. INTERACTIVE GALLERY TAB SYSTEM & LIGHTBOX */}
-      <section id="gallery" className="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 scroll-mt-24">
+      {project.showGallerySection !== false && (
+        <section id="gallery" className="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 scroll-mt-24">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
@@ -520,6 +527,7 @@ export default function ProjectDetailClient({
           )}
         </div>
       </section>
+      )}
 
       {/* 6. LIGHTBOX MODAL */}
       {lightboxIndex !== null && filteredGallery[lightboxIndex] && (
@@ -584,47 +592,49 @@ export default function ProjectDetailClient({
       )}
 
       {/* 7. PREV / NEXT PROJECT NAVIGATION */}
-      <section className="py-16 border-t border-stone-200 dark:border-white/10 max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {prevProject && (
-            <Link
-              href={`/projects/${prevProject.slug}`}
-              className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between rounded-2xl shadow-sm"
-            >
-              <div>
-                <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
-                  ← {td.prevProject}
-                </span>
-                <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
-                  {prevProject.title}
-                </h4>
-                <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
-                  {prevProject.category}
-                </p>
-              </div>
-            </Link>
-          )}
+      {project.showAdjacentNav !== false && (prevProject || nextProject) && (
+        <section className="py-16 border-t border-stone-200 dark:border-white/10 max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {prevProject && (
+              <Link
+                href={`/projects/${prevProject.slug}`}
+                className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between rounded-2xl shadow-sm"
+              >
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
+                    ← {td.prevProject}
+                  </span>
+                  <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
+                    {prevProject.title}
+                  </h4>
+                  <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
+                    {prevProject.category}
+                  </p>
+                </div>
+              </Link>
+            )}
 
-          {nextProject && (
-            <Link
-              href={`/projects/${nextProject.slug}`}
-              className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between text-right rounded-2xl shadow-sm ml-auto w-full md:w-auto md:min-w-[320px]"
-            >
-              <div className="ml-auto">
-                <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
-                  {td.nextProject} →
-                </span>
-                <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
-                  {nextProject.title}
-                </h4>
-                <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
-                  {nextProject.category}
-                </p>
-              </div>
-            </Link>
-          )}
-        </div>
-      </section>
+            {nextProject && (
+              <Link
+                href={`/projects/${nextProject.slug}`}
+                className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between text-right rounded-2xl shadow-sm ml-auto w-full md:w-auto md:min-w-[320px]"
+              >
+                <div className="ml-auto">
+                  <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
+                    {td.nextProject} →
+                  </span>
+                  <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
+                    {nextProject.title}
+                  </h4>
+                  <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
+                    {nextProject.category}
+                  </p>
+                </div>
+              </Link>
+            )}
+          </div>
+        </section>
+      )}
     </article>
   )
 }

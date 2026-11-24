@@ -36,6 +36,7 @@ export default function Navbar() {
   const navLinks = [
     { name: t.nav.home, href: '/' },
     { name: t.nav.projects, href: '/projects' },
+    { name: t.nav.services, href: '/services' },
     { name: t.nav.about, href: '/about' },
     { name: t.nav.contact, href: '/contact' },
   ]
@@ -70,8 +71,8 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Dead Center: Desktop Navigation Links (Absolute Dead Center & Light/Regular font weight, no bold) */}
-          <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center space-x-1 pointer-events-auto">
+          {/* Dead Center: Desktop Navigation Links */}
+          <nav className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center space-x-1 pointer-events-auto">
             {navLinks.map((link) => {
               const isActive =
                 link.href === '/'
@@ -98,7 +99,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right Controls: Language Switcher + Theme Toggle + Compact CTA */}
-          <div className="hidden sm:flex items-center space-x-3 shrink-0 z-10">
+          <div className="hidden lg:flex items-center space-x-3 shrink-0 z-10">
             {/* Language Switcher Capsule [SQ | MK | EN] */}
             <div className="flex items-center bg-stone-100 p-0.5 rounded-full border border-stone-200">
               {languages.map((l) => {
@@ -122,18 +123,18 @@ export default function Navbar() {
 
             {/* Smaller CTA Button (regular font weight, no bold) */}
             <Link
-              href="/contact"
-              className="group inline-flex items-center space-x-2 pl-3.5 pr-1.5 py-1 bg-[#D9222A] hover:bg-[#F03542] text-white text-[11px] font-normal rounded-full transition-all duration-300 shadow-md shadow-[#D9222A]/20"
+              href="/kerko-oferte"
+              className="group inline-flex items-center space-x-2 pl-3.5 pr-1.5 py-1 bg-[#D9222A] hover:bg-stone-900 text-white hover:text-white border border-[#D9222A] hover:border-stone-900 text-[11px] font-normal rounded-full transition-all duration-300 shadow-md shadow-[#D9222A]/20 hover:scale-[1.02]"
             >
               <span>{t.nav.inquire}</span>
-              <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              <span className="w-5 h-5 rounded-full bg-black/20 group-hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:-rotate-45" />
               </span>
             </Link>
           </div>
 
-          {/* Mobile Right Controls: Lang + Hamburger */}
-          <div className="flex sm:hidden items-center space-x-2 z-10">
+          {/* Mobile / Tablet Right Controls: Lang + Hamburger */}
+          <div className="flex lg:hidden items-center space-x-2 z-10">
             {/* Quick Lang Switch */}
             <div className="flex items-center bg-stone-100 p-0.5 rounded-full border border-stone-200">
               {languages.map((l) => (
@@ -154,18 +155,18 @@ export default function Navbar() {
             {/* Menu Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1 text-stone-800 hover:text-black rounded-md"
+              className="p-1.5 text-stone-800 hover:text-black rounded-full hover:bg-stone-100 transition-colors"
               aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile / Tablet Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white/98 text-stone-900 dark:bg-[#090A0C]/98 dark:text-white backdrop-blur-xl pt-24 px-6 pb-8 flex flex-col justify-between sm:hidden transition-colors duration-200">
+        <div className="fixed inset-0 z-40 bg-white/98 text-stone-900 dark:bg-[#090A0C]/98 dark:text-white backdrop-blur-xl pt-24 px-6 pb-8 flex flex-col justify-between lg:hidden transition-colors duration-200">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
@@ -185,9 +186,9 @@ export default function Navbar() {
               <p className="text-[#D9222A] mt-0.5">{COMPANY_INFO.mobile}</p>
             </div>
             <Link
-              href="/contact"
+              href="/kerko-oferte"
               onClick={() => setMobileMenuOpen(false)}
-              className="group w-full py-2 pl-4 pr-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] font-normal rounded-full flex items-center justify-center space-x-2 shadow-lg"
+              className="group w-full py-2.5 pl-4 pr-2 bg-[#D9222A] hover:bg-stone-900 text-white text-[12px] font-normal rounded-full flex items-center justify-between space-x-2 shadow-lg"
             >
               <span>{t.nav.inquire}</span>
               <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white">

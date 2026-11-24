@@ -165,14 +165,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[10px] text-stone-500 dark:text-stone-500 tracking-wider">
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[11px] text-stone-500 dark:text-stone-400 tracking-wider">
           <p>© {new Date().getFullYear()} A-X Engineering Architecture Studio. {t.footer.rights}</p>
           <div className="flex items-center space-x-4 mt-3 md:mt-0">
-            <span>Arkitekturë</span>
+            <Link href="/privacy" className="hover:text-[#D9222A] transition-colors">
+              {language === 'sq' ? 'Politika e Privatësisë' : language === 'mk' ? 'Политика за Приватност' : 'Privacy Policy'}
+            </Link>
             <span>•</span>
-            <span>Inxhinieri</span>
-            <span>•</span>
-            <span>Mbikëqyrje</span>
+            <Link href="/terms" className="hover:text-[#D9222A] transition-colors">
+              {language === 'sq' ? 'Kushtet e Përdorimit' : language === 'mk' ? 'Услови за Користење' : 'Terms & Conditions'}
+            </Link>
           </div>
         </div>
       </div>

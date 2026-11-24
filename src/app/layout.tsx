@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import SmoothScroll from '@/components/SmoothScroll'
 import { AppProvider } from '@/context/AppContext'
 
 export const viewport: Viewport = {
@@ -65,6 +66,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] flex flex-col selection:bg-[#D9222A] selection:text-white transition-colors duration-300">
         <AppProvider>
+          <SmoothScroll />
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

@@ -65,7 +65,12 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   fullDescription_en,
   servicesDone,
   servicesDone_mk,
-  servicesDone_en
+  servicesDone_en,
+  showProgressSection,
+  showSpecsSection,
+  showGallerySection,
+  showServicesScope,
+  showAdjacentNav
 }`
 
 export const featuredProjectsQuery = groq`*[_type == "project" && featured == true] | order(order asc, _createdAt desc)[0...6] {
@@ -112,6 +117,7 @@ export const teamMembersQuery = groq`*[_type == "teamMember"] | order(order asc,
 export const servicesQuery = groq`*[_type == "service"] | order(order asc) {
   _id,
   number,
+  "slug": slug.current,
   title,
   title_mk,
   title_en,
@@ -121,9 +127,75 @@ export const servicesQuery = groq`*[_type == "service"] | order(order asc) {
   description,
   description_mk,
   description_en,
+  heroImage,
   features,
   features_mk,
-  features_en
+  features_en,
+  deliverables,
+  deliverables_mk,
+  deliverables_en,
+  workflow[] {
+    stepNumber,
+    title,
+    title_mk,
+    title_en,
+    description,
+    description_mk,
+    description_en
+  },
+  faqs[] {
+    question,
+    question_mk,
+    question_en,
+    answer,
+    answer_mk,
+    answer_en
+  },
+  showWorkflow,
+  showFaqs,
+  showDeliverables
+}`
+
+export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0] {
+  _id,
+  number,
+  "slug": slug.current,
+  title,
+  title_mk,
+  title_en,
+  shortDescription,
+  shortDescription_mk,
+  shortDescription_en,
+  description,
+  description_mk,
+  description_en,
+  heroImage,
+  features,
+  features_mk,
+  features_en,
+  deliverables,
+  deliverables_mk,
+  deliverables_en,
+  workflow[] {
+    stepNumber,
+    title,
+    title_mk,
+    title_en,
+    description,
+    description_mk,
+    description_en
+  },
+  faqs[] {
+    question,
+    question_mk,
+    question_en,
+    answer,
+    answer_mk,
+    answer_en
+  },
+  showWorkflow,
+  showFaqs,
+  showDeliverables
 }`
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0] {

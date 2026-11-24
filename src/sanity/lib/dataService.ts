@@ -6,6 +6,7 @@ import {
   featuredProjectsQuery,
   teamMembersQuery,
   servicesQuery,
+  serviceBySlugQuery,
   siteSettingsQuery,
 } from './queries'
 import {
@@ -59,6 +60,11 @@ export async function getAllProjects(): Promise<ProjectItem[]> {
           servicesDone: p.servicesDone || ['Architectural Design', 'Site Supervision'],
           servicesDone_mk: p.servicesDone_mk,
           servicesDone_en: p.servicesDone_en,
+          showProgressSection: p.showProgressSection ?? true,
+          showSpecsSection: p.showSpecsSection ?? true,
+          showGallerySection: p.showGallerySection ?? true,
+          showServicesScope: p.showServicesScope ?? true,
+          showAdjacentNav: p.showAdjacentNav ?? true,
           gallery: (p.gallery || []).map((img: any) => ({
             url: getImageUrl(img, 1200) || '',
             caption: img.caption || '',
@@ -116,6 +122,11 @@ export async function getProjectBySlug(slug: string): Promise<ProjectItem | null
           servicesDone: p.servicesDone || ['Architectural Design', 'Site Supervision'],
           servicesDone_mk: p.servicesDone_mk,
           servicesDone_en: p.servicesDone_en,
+          showProgressSection: p.showProgressSection ?? true,
+          showSpecsSection: p.showSpecsSection ?? true,
+          showGallerySection: p.showGallerySection ?? true,
+          showServicesScope: p.showServicesScope ?? true,
+          showAdjacentNav: p.showAdjacentNav ?? true,
           gallery: (p.gallery || []).map((img: any) => ({
             url: getImageUrl(img, 1200) || '',
             caption: img.caption || '',
@@ -145,7 +156,20 @@ export async function getServices(): Promise<ServiceItem[]> {
     if (projectId && projectId !== 'demo-project-id') {
       const sanityServices = await client.fetch(servicesQuery)
       if (sanityServices && sanityServices.length > 0) {
-        return sanityServices.map((s: any) => ({
+        const seenNumbers = new Set<string>()
+        const uniqueServices: any[] = []
+
+        for (const s of sanityServices) {
+          const num = s.number || '01'
+          if (!seenNumbers.has(num)) {
+            seenNumbers.add(num)
+            uniqueServices.push(s)
+          }
+        }
+
+        return uniqueServices.map((s: any) => ({
+          id: s._id,
+          slug: s.slug || (s.title ? s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : `service-${s.number}`),
           number: s.number || '01',
           title: s.title,
           title_mk: s.title_mk,
@@ -156,9 +180,18 @@ export async function getServices(): Promise<ServiceItem[]> {
           description: s.description || '',
           description_mk: s.description_mk,
           description_en: s.description_en,
+          heroImage: getImageUrl(s.heroImage, 1600) || '',
           features: s.features || [],
           features_mk: s.features_mk,
           features_en: s.features_en,
+          deliverables: s.deliverables || [],
+          deliverables_mk: s.deliverables_mk,
+          deliverables_en: s.deliverables_en,
+          workflow: s.workflow || [],
+          faqs: s.faqs || [],
+          showWorkflow: s.showWorkflow ?? true,
+          showFaqs: s.showFaqs ?? true,
+          showDeliverables: s.showDeliverables ?? true,
         }))
       }
     }
@@ -166,6 +199,48 @@ export async function getServices(): Promise<ServiceItem[]> {
     console.warn('Sanity services fetch skipped, using static dataset:', err)
   }
   return SERVICES_DATA
+}
+
+export async function getServiceBySlug(slug: string): Promise<ServiceItem | null> {
+  try {
+    if (projectId && projectId !== 'demo-project-id') {
+      const s = await client.fetch(serviceBySlugQuery, { slug })
+      if (s) {
+        return {
+          id: s._id,
+          slug: s.slug || slug,
+          number: s.number || '01',
+          title: s.title,
+          title_mk: s.title_mk,
+          title_en: s.title_en,
+          shortDescription: s.shortDescription || '',
+          shortDescription_mk: s.shortDescription_mk,
+          shortDescription_en: s.shortDescription_en,
+          description: s.description || '',
+          description_mk: s.description_mk,
+          description_en: s.description_en,
+          heroImage: getImageUrl(s.heroImage, 1600) || '',
+          features: s.features || [],
+          features_mk: s.features_mk,
+          features_en: s.features_en,
+          deliverables: s.deliverables || [],
+          deliverables_mk: s.deliverables_mk,
+          deliverables_en: s.deliverables_en,
+          workflow: s.workflow || [],
+          faqs: s.faqs || [],
+          showWorkflow: s.showWorkflow ?? true,
+          showFaqs: s.showFaqs ?? true,
+          showDeliverables: s.showDeliverables ?? true,
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Sanity serviceBySlug fetch skipped, checking static dataset:', err)
+  }
+
+  // Fallback to static data
+  const localService = SERVICES_DATA.find((s) => s.slug === slug || s.number === slug)
+  return localService || null
 }
 
 export async function getTeamMembers(): Promise<TeamMemberItem[]> {

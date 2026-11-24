@@ -51,13 +51,39 @@ export interface ProjectItem {
   servicesDone_mk?: string[]
   servicesDone_en?: string[]
   gallery: ProjectGalleryItem[]
+  showProgressSection?: boolean
+  showSpecsSection?: boolean
+  showGallerySection?: boolean
+  showServicesScope?: boolean
+  showAdjacentNav?: boolean
   metrics?: {
     label: string
     value: string
   }[]
 }
 
+export interface ServiceWorkflowStep {
+  stepNumber: string
+  title: string
+  title_mk?: string
+  title_en?: string
+  description: string
+  description_mk?: string
+  description_en?: string
+}
+
+export interface ServiceFAQItem {
+  question: string
+  question_mk?: string
+  question_en?: string
+  answer: string
+  answer_mk?: string
+  answer_en?: string
+}
+
 export interface ServiceItem {
+  id?: string
+  slug?: string
   number: string
   title: string
   title_mk?: string
@@ -68,9 +94,18 @@ export interface ServiceItem {
   description: string
   description_mk?: string
   description_en?: string
+  heroImage?: string
   features: string[]
   features_mk?: string[]
   features_en?: string[]
+  deliverables?: string[]
+  deliverables_mk?: string[]
+  deliverables_en?: string[]
+  workflow?: ServiceWorkflowStep[]
+  faqs?: ServiceFAQItem[]
+  showWorkflow?: boolean
+  showFaqs?: boolean
+  showDeliverables?: boolean
 }
 
 export interface TeamMemberItem {

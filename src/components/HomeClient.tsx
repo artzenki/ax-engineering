@@ -18,10 +18,12 @@ interface HomeClientProps {
 function AnimatedLetterText({
   text,
   startIndex = 0,
+  baseDelay = 0.65,
   className = '',
 }: {
   text: string
   startIndex?: number
+  baseDelay?: number
   className?: string
 }) {
   const words = text.split(' ')
@@ -34,7 +36,7 @@ function AnimatedLetterText({
         const wordEl = (
           <span key={wIdx} className="inline-block whitespace-nowrap">
             {letters.map((char, cIdx) => {
-              const delay = `${(runningIndex + cIdx) * 0.035}s`
+              const delay = `${baseDelay + (runningIndex + cIdx) * 0.028}s`
               return (
                 <span
                   key={cIdx}
@@ -85,56 +87,64 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
         {/* Hero Content - Scaled to max-w-xl with crisp white and red typography */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
           <div className="max-w-lg md:max-w-xl">
-            {/* Pill Tag */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-white/20 bg-black/60 backdrop-blur-md mb-6 shadow-xl">
-              <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A]" />
-              <span className="hero-tag-text text-[10px] uppercase tracking-[0.22em] font-normal">
+            {/* 1. Pill Tag - Opens/expands smoothly, then reveals animated text */}
+            <div className="hero-pill-expand inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/60 backdrop-blur-md mb-6 shadow-xl hover:border-[#D9222A]/60 hover:bg-black/80 transition-all cursor-default">
+              <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A] shrink-0" />
+              <span className="hero-pill-text hero-tag-text text-[10px] uppercase tracking-[0.22em] font-normal">
                 {t.hero.tag}
               </span>
             </div>
 
-            {/* Headline - High contrast white with scarlet accent and letter-by-letter popup */}
+            {/* 2. Headline - Letter-by-letter popping up sequentially after the pill expands */}
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-normal tracking-tight leading-[1.08] mb-5">
-              <AnimatedLetterText text={t.hero.title1} startIndex={0} />{' '}
+              <AnimatedLetterText text={t.hero.title1} startIndex={0} baseDelay={0.7} />{' '}
               <AnimatedLetterText
                 text={t.hero.titleAccent}
                 startIndex={title1Count + 1}
+                baseDelay={0.7}
                 className="hero-accent-red font-normal"
               />{' '}
               <AnimatedLetterText
                 text={t.hero.title2}
                 startIndex={title1Count + titleAccentCount + 2}
+                baseDelay={0.7}
               />
             </h1>
 
-            {/* Subtitle - Crisp off-white (F4F4F5) over dark photo */}
-            <p className="text-xs sm:text-sm md:text-[15px] leading-relaxed font-normal mb-8 tracking-wide max-w-lg">
+            {/* 3. Subtitle - Crisp off-white (F4F4F5) fading up after headline */}
+            <p className="hero-desc-fade text-xs sm:text-sm md:text-[15px] leading-relaxed font-normal mb-8 tracking-wide max-w-lg text-[#F4F4F5]">
               {t.hero.subtitle}
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 justify-start">
+            {/* 4. Action Buttons - Pop animation like the pill, hover inversion, counter-clockwise -45deg arrow rotation */}
+            <div className="hero-buttons-pop flex flex-col sm:flex-row items-center gap-3 justify-start">
+              {/* Primary Button: Red that transitions to crisp white on hover */}
               <Link
                 href="/projects"
-                className="group w-full sm:w-auto inline-flex items-center justify-between sm:justify-start space-x-2.5 pl-4 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] !text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/30"
+                className="group w-full sm:w-auto inline-flex items-center justify-between sm:justify-start space-x-2.5 pl-5 pr-2 py-2 bg-[#D9222A] hover:bg-white text-white hover:text-[#D9222A] border border-[#D9222A] hover:border-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/30 hover:shadow-2xl hover:scale-[1.02]"
               >
                 <span>{t.hero.viewPortfolio}</span>
-                <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center !text-white group-hover:bg-black/35 transition-colors">
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                <span className="w-5 h-5 rounded-full bg-black/25 group-hover:bg-[#D9222A]/10 flex items-center justify-center text-white group-hover:text-[#D9222A] transition-colors">
+                  <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:-rotate-45" />
                 </span>
               </Link>
+
+              {/* Secondary Button: White/glass that transitions to radiant red on hover */}
               <Link
-                href="/contact"
-                className="group w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-2 border border-white/30 hover:border-white !text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-black/30 hover:bg-black/50 backdrop-blur-md"
+                href="/kerko-oferte"
+                className="group w-full sm:w-auto inline-flex items-center justify-between sm:justify-start space-x-2.5 pl-5 pr-2 py-2 border border-white/40 hover:border-[#D9222A] text-white hover:text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-black/40 hover:bg-[#D9222A] backdrop-blur-md shadow-lg hover:shadow-xl hover:shadow-[#D9222A]/30 hover:scale-[1.02]"
               >
-                <span>{t.hero.initiateProject}</span>
+                <span>{language === 'sq' ? 'Kërko Ofertë' : language === 'mk' ? 'Побарај Понуда' : 'Request a Quote'}</span>
+                <span className="w-5 h-5 rounded-full bg-white/15 group-hover:bg-black/25 flex items-center justify-center text-white transition-colors">
+                  <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:-rotate-45" />
+                </span>
               </Link>
             </div>
           </div>
         </div>
 
         {/* Quick stats ribbon pinned to bottom of 100vh hero */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+        <div className="hero-stats-fade relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
           {SITE_STATS.map((stat, i) => {
             const labels = [t.hero.stat1, t.hero.stat2, t.hero.stat3, t.hero.stat4]
             return (
@@ -287,38 +297,42 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
               const sTitle = language === 'mk' && service.title_mk ? service.title_mk : language === 'en' && service.title_en ? service.title_en : service.title
               const sDesc = language === 'mk' && service.description_mk ? service.description_mk : language === 'en' && service.description_en ? service.description_en : service.description
               const sFeatures = (language === 'mk' && service.features_mk?.length ? service.features_mk : language === 'en' && service.features_en?.length ? service.features_en : service.features) || []
+              const sSlug = service.slug || (index === 0 ? 'arkitekture-dhe-projektim' : index === 1 ? 'mbikeqyrje-e-licencuar-kantier' : index === 2 ? 'ndertim-rezidencial-luksoz' : index === 3 ? 'inxhinieri-strukturore-statike' : 'arkitekture-enterieri-3d')
 
               return (
-                <div
+                <Link
                   key={service.number || index}
-                  className="group p-7 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/60 transition-all duration-300 flex flex-col justify-between space-y-5 rounded-xl shadow-sm hover:shadow-md"
+                  href={`/services/${sSlug}`}
+                  className="group p-7 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/60 transition-all duration-300 flex flex-col justify-between space-y-5 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[#D9222A]/10 hover:-translate-y-1 relative"
                 >
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <span className="font-display text-xl text-stone-500 group-hover:text-[#D9222A] transition-colors font-normal">
                         {service.number || String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-white/20 group-hover:bg-[#D9222A] transition-colors" />
+                      <span className="w-8 h-8 rounded-full bg-stone-100 dark:bg-white/5 group-hover:bg-[#D9222A] group-hover:text-white flex items-center justify-center transition-all duration-300">
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-rotate-45" />
+                      </span>
                     </div>
-                    <h3 className="font-display text-lg text-white theme-text-heading font-normal group-hover:text-[#D9222A] transition-colors">
+                    <h3 className="font-display text-lg text-stone-900 dark:text-white font-normal group-hover:text-[#D9222A] transition-colors">
                       {sTitle}
                     </h3>
-                    <p className="text-xs text-stone-400 theme-text-body leading-relaxed font-normal">
+                    <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal line-clamp-3">
                       {sDesc}
                     </p>
                   </div>
 
-                  <div className="pt-3.5 border-t border-white/5 theme-border flex flex-wrap gap-1.5">
-                    {sFeatures.map((item, i) => (
+                  <div className="pt-3.5 border-t border-stone-200/80 dark:border-white/5 flex flex-wrap gap-1.5">
+                    {sFeatures.slice(0, 3).map((item, i) => (
                       <span
                         key={i}
-                        className="text-[11px] font-normal px-2.5 py-1 bg-stone-100 hover:bg-stone-200/80 dark:bg-white/5 dark:hover:bg-white/10 text-stone-700 dark:text-stone-300 border border-stone-200/80 dark:border-white/10 rounded-md transition-colors"
+                        className="text-[10px] font-normal px-2.5 py-1 bg-stone-100 dark:bg-white/5 text-stone-700 dark:text-stone-300 border border-stone-200/60 dark:border-white/10 rounded-full transition-colors"
                       >
                         {item}
                       </span>
                     ))}
                   </div>
-                </div>
+                </Link>
               )
             })}
           </div>

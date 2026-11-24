@@ -11,6 +11,7 @@ export const project = defineType({
     { name: 'specs', title: '📐 Specs & Info' },
     { name: 'construction', title: '🏗️ Ndjekja e Punimeve' },
     { name: 'media', title: '📸 Media & Gallery' },
+    { name: 'toggles', title: '🎛️ Pamja & Toggles' },
   ],
   fields: [
     // --- 🇦🇱 ALBANIAN (Primary) ---
@@ -364,6 +365,43 @@ export const project = defineType({
           ],
         },
       ],
+    }),
+
+    // --- 🎛️ PAMJA & TOGGLES ---
+    defineField({
+      name: 'showProgressSection',
+      title: 'Shfaq Seksionin "Ndjekja e Punimeve"',
+      type: 'boolean',
+      group: 'toggles',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'showSpecsSection',
+      title: 'Shfaq Kartat e Specifikimeve (Kate, m², etj.)',
+      type: 'boolean',
+      group: 'toggles',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'showGallerySection',
+      title: 'Shfaq Galerinë me Tab-e & Foto',
+      type: 'boolean',
+      group: 'toggles',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'showServicesScope',
+      title: 'Shfaq Seksionin e Shërbimeve të Realizuara',
+      type: 'boolean',
+      group: 'toggles',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'showAdjacentNav',
+      title: 'Shfaq Navigimin e Projekteve Para/Pas',
+      type: 'boolean',
+      group: 'toggles',
+      initialValue: true,
     }),
   ],
   preview: {
