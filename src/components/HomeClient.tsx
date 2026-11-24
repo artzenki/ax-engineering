@@ -15,9 +15,52 @@ interface HomeClientProps {
   heroImageAlt?: string
 }
 
+function AnimatedLetterText({
+  text,
+  startIndex = 0,
+  className = '',
+}: {
+  text: string
+  startIndex?: number
+  className?: string
+}) {
+  const words = text.split(' ')
+  let runningIndex = startIndex
+
+  return (
+    <span className={className}>
+      {words.map((word, wIdx) => {
+        const letters = Array.from(word)
+        const wordEl = (
+          <span key={wIdx} className="inline-block whitespace-nowrap">
+            {letters.map((char, cIdx) => {
+              const delay = `${(runningIndex + cIdx) * 0.035}s`
+              return (
+                <span
+                  key={cIdx}
+                  className="inline-block hero-letter-pop"
+                  style={{ animationDelay: delay }}
+                >
+                  {char}
+                </span>
+              )
+            })}
+            {wIdx < words.length - 1 && <span className="inline-block">&nbsp;</span>}
+          </span>
+        )
+        runningIndex += letters.length + 1
+        return wordEl
+      })}
+    </span>
+  )
+}
+
 export default function HomeClient({ projects, services, heroImage, heroImageAlt }: HomeClientProps) {
   const { language } = useApp()
   const t = translations[language]
+
+  const title1Count = Array.from(t.hero.title1).length
+  const titleAccentCount = Array.from(t.hero.titleAccent).length
 
   return (
     <div className="relative">
@@ -50,11 +93,18 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
               </span>
             </div>
 
-            {/* Headline - High contrast white with scarlet accent */}
+            {/* Headline - High contrast white with scarlet accent and letter-by-letter popup */}
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-normal tracking-tight leading-[1.08] mb-5">
-              <span>{t.hero.title1}</span>{' '}
-              <span className="hero-accent-red font-normal">{t.hero.titleAccent}</span>{' '}
-              <span>{t.hero.title2}</span>
+              <AnimatedLetterText text={t.hero.title1} startIndex={0} />{' '}
+              <AnimatedLetterText
+                text={t.hero.titleAccent}
+                startIndex={title1Count + 1}
+                className="hero-accent-red font-normal"
+              />{' '}
+              <AnimatedLetterText
+                text={t.hero.title2}
+                startIndex={title1Count + titleAccentCount + 2}
+              />
             </h1>
 
             {/* Subtitle - Crisp off-white (F4F4F5) over dark photo */}
@@ -233,38 +283,44 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <div
-                key={service.number || index}
-                className="group p-7 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/60 transition-all duration-300 flex flex-col justify-between space-y-5 rounded-xl shadow-sm hover:shadow-md"
-              >
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-xl text-stone-500 group-hover:text-[#D9222A] transition-colors font-normal">
-                      {service.number || String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-white/20 group-hover:bg-[#D9222A] transition-colors" />
-                  </div>
-                  <h3 className="font-display text-lg text-white theme-text-heading font-normal group-hover:text-[#D9222A] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs text-stone-400 theme-text-body leading-relaxed font-normal">
-                    {service.description}
-                  </p>
-                </div>
+            {services.map((service, index) => {
+              const sTitle = language === 'mk' && service.title_mk ? service.title_mk : language === 'en' && service.title_en ? service.title_en : service.title
+              const sDesc = language === 'mk' && service.description_mk ? service.description_mk : language === 'en' && service.description_en ? service.description_en : service.description
+              const sFeatures = (language === 'mk' && service.features_mk?.length ? service.features_mk : language === 'en' && service.features_en?.length ? service.features_en : service.features) || []
 
-                <div className="pt-3.5 border-t border-white/5 theme-border flex flex-wrap gap-1.5">
-                  {service.features?.map((item, i) => (
-                    <span
-                      key={i}
-                      className="text-[11px] font-normal px-2.5 py-1 bg-stone-100 hover:bg-stone-200/80 dark:bg-white/5 dark:hover:bg-white/10 text-stone-700 dark:text-stone-300 border border-stone-200/80 dark:border-white/10 rounded-md transition-colors"
-                    >
-                      {item}
-                    </span>
-                  ))}
+              return (
+                <div
+                  key={service.number || index}
+                  className="group p-7 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/60 transition-all duration-300 flex flex-col justify-between space-y-5 rounded-xl shadow-sm hover:shadow-md"
+                >
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-display text-xl text-stone-500 group-hover:text-[#D9222A] transition-colors font-normal">
+                        {service.number || String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-white/20 group-hover:bg-[#D9222A] transition-colors" />
+                    </div>
+                    <h3 className="font-display text-lg text-white theme-text-heading font-normal group-hover:text-[#D9222A] transition-colors">
+                      {sTitle}
+                    </h3>
+                    <p className="text-xs text-stone-400 theme-text-body leading-relaxed font-normal">
+                      {sDesc}
+                    </p>
+                  </div>
+
+                  <div className="pt-3.5 border-t border-white/5 theme-border flex flex-wrap gap-1.5">
+                    {sFeatures.map((item, i) => (
+                      <span
+                        key={i}
+                        className="text-[11px] font-normal px-2.5 py-1 bg-stone-100 hover:bg-stone-200/80 dark:bg-white/5 dark:hover:bg-white/10 text-stone-700 dark:text-stone-300 border border-stone-200/80 dark:border-white/10 rounded-md transition-colors"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

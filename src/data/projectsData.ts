@@ -29,15 +29,27 @@ export interface ProjectItem {
 export interface ServiceItem {
   number: string
   title: string
+  title_mk?: string
+  title_en?: string
   shortDescription: string
+  shortDescription_mk?: string
+  shortDescription_en?: string
   description: string
+  description_mk?: string
+  description_en?: string
   features: string[]
+  features_mk?: string[]
+  features_en?: string[]
 }
 
 export interface TeamMemberItem {
   name: string
   role: string
+  role_mk?: string
+  role_en?: string
   bio: string
+  bio_mk?: string
+  bio_en?: string
   image: string
   email?: string
 }

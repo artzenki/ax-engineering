@@ -140,42 +140,47 @@ export default function AboutClient({ team }: { team: TeamMemberItem[] }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {team.map((member, index) => (
-              <div
-                key={member.name || index}
-                className="group bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all duration-300 overflow-hidden rounded-xl shadow-sm hover:shadow-md"
-              >
-                <div className="relative h-72 w-full overflow-hidden bg-stone-900">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-                </div>
+            {team.map((member, index) => {
+              const mRole = language === 'mk' && member.role_mk ? member.role_mk : language === 'en' && member.role_en ? member.role_en : member.role
+              const mBio = language === 'mk' && member.bio_mk ? member.bio_mk : language === 'en' && member.bio_en ? member.bio_en : member.bio
 
-                <div className="p-5 space-y-1.5">
-                  <h3 className="font-display text-base text-stone-900 dark:text-white font-normal group-hover:text-[#D9222A] transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-[11px] text-[#D9222A] tracking-wider uppercase font-semibold">
-                    {member.role}
-                  </p>
-                  <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed pt-1">
-                    {member.bio}
-                  </p>
+              return (
+                <div
+                  key={member.name || index}
+                  className="group bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all duration-300 overflow-hidden rounded-xl shadow-sm hover:shadow-md"
+                >
+                  <div className="relative h-72 w-full overflow-hidden bg-stone-900">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                  </div>
 
-                  {member.email && (
-                    <div className="pt-3 border-t border-stone-200 dark:border-white/5 flex items-center space-x-2 text-[10px] text-stone-500 dark:text-stone-400 hover:text-[#D9222A] transition-colors">
-                      <Mail className="w-3.5 h-3.5 text-[#D9222A]" />
-                      <span>{member.email}</span>
-                    </div>
-                  )}
+                  <div className="p-5 space-y-1.5">
+                    <h3 className="font-display text-base text-stone-900 dark:text-white font-normal group-hover:text-[#D9222A] transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className="text-[11px] text-[#D9222A] tracking-wider uppercase font-normal">
+                      {mRole}
+                    </p>
+                    <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed pt-1 font-normal">
+                      {mBio}
+                    </p>
+
+                    {member.email && (
+                      <div className="pt-3 border-t border-stone-200 dark:border-white/5 flex items-center space-x-2 text-[10px] text-stone-500 dark:text-stone-400 hover:text-[#D9222A] transition-colors">
+                        <Mail className="w-3.5 h-3.5 text-[#D9222A]" />
+                        <span>{member.email}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </section>
 

@@ -89,9 +89,8 @@ export default function ProjectMasonry({
 
       {/* Masonry / Responsive Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {filteredProjects.map((project, index) => {
-          const isFeatured = index === 0 || index === 4
-          const heightClass = isFeatured ? 'h-[500px] md:h-[540px]' : 'h-[420px] md:h-[460px]'
+        {filteredProjects.map((project) => {
+          const heightClass = 'h-[450px] md:h-[470px]'
           const categoryName = t.portfolio.categories[project.categorySlug] || project.category
 
           return (

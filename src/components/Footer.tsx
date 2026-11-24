@@ -18,8 +18,22 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#F0F2F6] dark:bg-[#060608] text-stone-700 dark:text-stone-300 border-t border-stone-200 dark:border-white/5 pt-16 pb-12 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <footer className="relative overflow-hidden bg-[#F0F2F6] dark:bg-[#060608] text-stone-700 dark:text-stone-300 border-t border-stone-200 dark:border-white/5 pt-16 pb-12 transition-colors duration-200">
+      {/* Decorative Blurred Ambient Ellipses on Sides */}
+      <div
+        className="pointer-events-none absolute -left-24 top-1/4 h-72 w-72 md:h-[400px] md:w-[400px] rounded-full bg-[#D9222A]/12 dark:bg-[#D9222A]/18 blur-[90px] md:blur-[120px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-24 bottom-1/4 h-72 w-72 md:h-[420px] md:w-[420px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[100px] md:blur-[130px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute left-1/2 -top-20 -translate-x-1/2 h-36 w-96 rounded-full bg-white/50 dark:bg-white/5 blur-[80px]"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         {/* Top Pre-Footer Call to Action */}
         <div className="pb-12 border-b border-stone-200 dark:border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>

@@ -106,9 +106,17 @@ export async function getServices(): Promise<ServiceItem[]> {
         return sanityServices.map((s: any) => ({
           number: s.number || '01',
           title: s.title,
+          title_mk: s.title_mk,
+          title_en: s.title_en,
           shortDescription: s.shortDescription || '',
+          shortDescription_mk: s.shortDescription_mk,
+          shortDescription_en: s.shortDescription_en,
           description: s.description || '',
+          description_mk: s.description_mk,
+          description_en: s.description_en,
           features: s.features || [],
+          features_mk: s.features_mk,
+          features_en: s.features_en,
         }))
       }
     }
@@ -126,7 +134,11 @@ export async function getTeamMembers(): Promise<TeamMemberItem[]> {
         return sanityTeam.map((m: any) => ({
           name: m.name,
           role: m.role,
+          role_mk: m.role_mk,
+          role_en: m.role_en,
           bio: m.bio || '',
+          bio_mk: m.bio_mk,
+          bio_en: m.bio_en,
           image: getImageUrl(m.image, 800) || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
           email: m.email,
         }))
