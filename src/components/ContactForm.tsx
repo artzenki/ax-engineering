@@ -1,14 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, CheckCircle2, ArrowRight } from 'lucide-react'
+import { CheckCircle2, ArrowRight } from 'lucide-react'
+import { useApp } from '@/context/AppContext'
+import { translations } from '@/translations'
 
 export default function ContactForm() {
+  const { language } = useApp()
+  const t = translations[language]
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    service: 'Luxury Residential Architecture',
+    service: 'Vila Luksoze / Rezidencë Private',
     location: '',
     message: '',
   })
@@ -18,8 +23,6 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate instant fast submission (can connect to Formspree, Resend, or API)
     await new Promise((resolve) => setTimeout(resolve, 800))
     setIsSubmitting(false)
     setIsSubmitted(true)
@@ -27,11 +30,11 @@ export default function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="p-8 md:p-12 bg-[#121215] border border-[#C5A880]/40 text-center space-y-5">
-        <CheckCircle2 className="w-12 h-12 text-[#C5A880] mx-auto" />
-        <h3 className="font-serif text-2xl text-white">Inquiry Received</h3>
+      <div className="p-8 md:p-12 bg-[#111215] border border-[#D9222A]/40 text-center space-y-5 rounded-xl shadow-2xl">
+        <CheckCircle2 className="w-12 h-12 text-[#D9222A] mx-auto" />
+        <h3 className="font-display text-2xl text-white">{t.contact.successTitle}</h3>
         <p className="text-xs text-stone-300 max-w-md mx-auto leading-relaxed">
-          Thank you, <span className="text-white font-medium">{formData.name}</span>. Our lead architectural and engineering office in Gostivar has received your project briefing and will contact you within 24 business hours.
+          {t.contact.successDesc}
         </p>
         <button
           onClick={() => {
@@ -40,26 +43,26 @@ export default function ContactForm() {
               name: '',
               email: '',
               phone: '',
-              service: 'Luxury Residential Architecture',
+              service: 'Vila Luksoze / Rezidencë Private',
               location: '',
               message: '',
             })
           }}
-          className="text-xs uppercase tracking-widest text-[#C5A880] underline pt-4"
+          className="text-xs uppercase tracking-widest text-[#D9222A] hover:text-[#F03542] underline pt-4"
         >
-          Send another inquiry
+          {t.contact.sendAnother}
         </button>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Full Name */}
-        <div className="space-y-2">
-          <label className="text-xs uppercase tracking-widest text-stone-300 block">
-            Full Name / Organisation *
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+            {t.contact.fullName}
           </label>
           <input
             type="text"
@@ -67,14 +70,14 @@ export default function ContactForm() {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="e.g. Besnik Iseni"
-            className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-[#C5A880] transition-colors"
+            className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors"
           />
         </div>
 
         {/* Email */}
-        <div className="space-y-2">
-          <label className="text-xs uppercase tracking-widest text-stone-300 block">
-            Email Address *
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+            {t.contact.email}
           </label>
           <input
             type="email"
@@ -82,16 +85,16 @@ export default function ContactForm() {
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="name@company.com"
-            className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-[#C5A880] transition-colors"
+            className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Phone */}
-        <div className="space-y-2">
-          <label className="text-xs uppercase tracking-widest text-stone-300 block">
-            Telephone / WhatsApp *
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+            {t.contact.phone}
           </label>
           <input
             type="tel"
@@ -99,56 +102,56 @@ export default function ContactForm() {
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             placeholder="+389 70 000 000"
-            className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-[#C5A880] transition-colors"
+            className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors"
           />
         </div>
 
         {/* Service Requested */}
-        <div className="space-y-2">
-          <label className="text-xs uppercase tracking-widest text-stone-300 block">
-            Discipline Required
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+            {t.contact.discipline}
           </label>
           <select
             value={formData.service}
             onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-            className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white focus:outline-none focus:border-[#C5A880] transition-colors"
+            className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors"
           >
-            <option value="Luxury Residential Architecture">Luxury Villa / Private Residence</option>
-            <option value="Commercial Development">Commercial & Mixed-Use Hub</option>
-            <option value="Site Supervision & Audit">Construction Site Supervision & Audit (Nadzor)</option>
-            <option value="Structural & Seismic Engineering">Structural & Static Engineering</option>
-            <option value="AX Signature Residences">Inquire about AX Signature Residences</option>
-            <option value="Interior Architecture">Bespoke Interior & Living Design</option>
+            <option value="Vila Luksoze / Rezidencë Private">Vila Luksoze / Rezidencë Private</option>
+            <option value="Objekt Afarist / Qendër Tregtare">Objekt Afarist / Qendër Tregtare</option>
+            <option value="Mbikëqyrje Ndërtimi (Nadzor)">Mbikëqyrje Ndërtimi (Nadzor)</option>
+            <option value="Projektim Statik & Sizmik">Projektim Statik & Sizmik</option>
+            <option value="A-X Signature Residences">A-X Signature Residences</option>
+            <option value="Enterier & Dizajn Hapësinor">Enterier & Dizajn Hapësinor</option>
           </select>
         </div>
       </div>
 
       {/* Project Location */}
-      <div className="space-y-2">
-        <label className="text-xs uppercase tracking-widest text-stone-300 block">
-          Plot / Project Location
+      <div className="space-y-1.5">
+        <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+          {t.contact.location}
         </label>
         <input
           type="text"
           value={formData.location}
           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          placeholder="e.g. Gostivar, Mavrovo, Tetovo, Skopje, or International"
-          className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-[#C5A880] transition-colors"
+          placeholder="e.g. Gostivar, Mavrovë, Tetovë, Shkup, etj."
+          className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors"
         />
       </div>
 
       {/* Project Description */}
-      <div className="space-y-2">
-        <label className="text-xs uppercase tracking-widest text-stone-300 block">
-          Project Brief / Scope of Work *
+      <div className="space-y-1.5">
+        <label className="text-[11px] uppercase tracking-wider text-stone-300 theme-text-heading block font-medium">
+          {t.contact.brief}
         </label>
         <textarea
           required
-          rows={5}
+          rows={4}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          placeholder="Provide details regarding the land plot, desired square meters, timeline, or current construction status..."
-          className="w-full bg-[#121215] border border-white/10 px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-[#C5A880] transition-colors resize-none"
+          placeholder="Shënoni hollësi për parcelën, sipërfaqen e dëshiruar në m², afatet kohore, etj."
+          className="w-full bg-[#111215] border border-white/10 px-4 py-2.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#D9222A] rounded-lg transition-colors resize-none"
         />
       </div>
 
@@ -156,14 +159,16 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 bg-[#C5A880] hover:bg-white text-black uppercase tracking-[0.25em] text-xs font-semibold flex items-center justify-center space-x-2 transition-all duration-300 disabled:opacity-50"
+        className="group w-full py-2.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] md:text-[13px] font-normal rounded-full flex items-center justify-center space-x-2.5 transition-all duration-300 shadow-xl shadow-[#D9222A]/20 disabled:opacity-50"
       >
-        <span>{isSubmitting ? 'Transmitting Brief...' : 'Transmit Project Brief'}</span>
-        <ArrowRight className="w-4 h-4" />
+        <span>{isSubmitting ? t.contact.transmitting : t.contact.submitBtn}</span>
+        <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+        </span>
       </button>
 
-      <p className="text-[11px] text-stone-500 text-center tracking-wider">
-        Your data is treated with confidentiality. Initial architectural consultation is non-binding.
+      <p className="text-[10px] text-stone-500 text-center tracking-wider">
+        {t.contact.confidentialNotice}
       </p>
     </form>
   )

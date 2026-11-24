@@ -7,9 +7,19 @@ export const category = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Titulli (Shqip)',
       type: 'string',
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'title_mk',
+      title: 'Наслов (Македонски)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'title_en',
+      title: 'Title (English)',
+      type: 'string',
     }),
     defineField({
       name: 'slug',
@@ -23,7 +33,17 @@ export const category = defineType({
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Përshkrimi (Shqip)',
+      type: 'text',
+    }),
+    defineField({
+      name: 'description_mk',
+      title: 'Опис (Македонски)',
+      type: 'text',
+    }),
+    defineField({
+      name: 'description_en',
+      title: 'Description (English)',
       type: 'text',
     }),
   ],

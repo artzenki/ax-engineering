@@ -1,0 +1,273 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowRight, ArrowUpRight, ShieldCheck, Compass } from 'lucide-react'
+import ProjectMasonry from '@/components/ProjectMasonry'
+import { ProjectItem, ServiceItem, SITE_STATS } from '@/data/projectsData'
+import { useApp } from '@/context/AppContext'
+import { translations } from '@/translations'
+
+interface HomeClientProps {
+  projects: ProjectItem[]
+  services: ServiceItem[]
+  heroImage?: string
+  heroImageAlt?: string
+}
+
+export default function HomeClient({ projects, services, heroImage, heroImageAlt }: HomeClientProps) {
+  const { language } = useApp()
+  const t = translations[language]
+
+  return (
+    <div className="relative">
+      {/* HERO SECTION - Always high-contrast white text over architectural visual background */}
+      <section id="hero-section" className="hero-photo-container relative h-screen min-h-screen w-full flex flex-col justify-between pt-28 pb-8 md:pb-12 overflow-hidden text-white">
+        {/* Full-bleed Architectural Visual Background */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroImage || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=90"}
+            alt={heroImageAlt || "A-X Engineering Architecture Studio"}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center filter brightness-[0.4] contrast-[1.1]"
+          />
+          {/* Subtle architectural grid pattern overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+          {/* Dark scrim gradient to guarantee AAA contrast for white text */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/60" />
+        </div>
+
+        {/* Hero Content - Scaled to max-w-xl with crisp white and red typography */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
+          <div className="max-w-lg md:max-w-xl">
+            {/* Pill Tag */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full border border-white/20 bg-black/60 backdrop-blur-md mb-6 shadow-xl">
+              <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A]" />
+              <span className="hero-tag-text text-[10px] uppercase tracking-[0.22em] font-normal">
+                {t.hero.tag}
+              </span>
+            </div>
+
+            {/* Headline - High contrast white with scarlet accent */}
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-normal tracking-tight leading-[1.08] mb-5">
+              <span>{t.hero.title1}</span>{' '}
+              <span className="hero-accent-red font-normal">{t.hero.titleAccent}</span>{' '}
+              <span>{t.hero.title2}</span>
+            </h1>
+
+            {/* Subtitle - Crisp off-white (F4F4F5) over dark photo */}
+            <p className="text-xs sm:text-sm md:text-[15px] leading-relaxed font-normal mb-8 tracking-wide max-w-lg">
+              {t.hero.subtitle}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 justify-start">
+              <Link
+                href="/projects"
+                className="group w-full sm:w-auto inline-flex items-center justify-between sm:justify-start space-x-2.5 pl-4 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] !text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/30"
+              >
+                <span>{t.hero.viewPortfolio}</span>
+                <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center !text-white group-hover:bg-black/35 transition-colors">
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                </span>
+              </Link>
+              <Link
+                href="/contact"
+                className="group w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-2 border border-white/30 hover:border-white !text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-black/30 hover:bg-black/50 backdrop-blur-md"
+              >
+                <span>{t.hero.initiateProject}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick stats ribbon pinned to bottom of 100vh hero */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+          {SITE_STATS.map((stat, i) => {
+            const labels = [t.hero.stat1, t.hero.stat2, t.hero.stat3, t.hero.stat4]
+            return (
+              <div key={i} className="space-y-0.5">
+                <span className="hero-stat-number font-display text-xl md:text-2xl !text-white font-normal tracking-tight">
+                  {stat.value}
+                </span>
+                <p className="hero-stat-label text-[10px] uppercase tracking-wider !text-[#D4D4D8] font-normal">
+                  {labels[i] || stat.label}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* ABOUT OVERVIEW / PHILOSOPHY */}
+      <section className="py-20 md:py-28 bg-[#F0F2F6] dark:bg-[#0C0D10] border-t border-b border-stone-200 dark:border-white/5 relative transition-colors duration-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Narrative */}
+            <div className="lg:col-span-6 space-y-5">
+              <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-normal block">
+                {t.about.tag}
+              </span>
+              <h2 className="font-display text-2xl md:text-4xl text-stone-900 dark:text-white font-normal leading-tight">
+                {t.about.title}
+              </h2>
+              <p className="text-stone-700 dark:text-stone-300 text-sm leading-relaxed font-normal">
+                {t.about.p1}
+              </p>
+              <p className="text-stone-600 dark:text-stone-400 text-sm leading-relaxed font-normal">
+                {t.about.p2}
+              </p>
+
+              {/* Core Pillars */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="p-4 bg-white dark:bg-[#121316] border border-stone-200 dark:border-white/5 flex items-start space-x-3 rounded-lg transition-colors duration-200 shadow-sm">
+                  <Compass className="w-4 h-4 text-[#D9222A] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs uppercase tracking-wider text-stone-900 dark:text-white font-normal font-display">
+                      {t.about.pillar1Title}
+                    </h4>
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-1 font-normal">
+                      {t.about.pillar1Desc}
+                    </p>
+                  </div>
+                </div>
+                <div className="p-4 bg-white dark:bg-[#121316] border border-stone-200 dark:border-white/5 flex items-start space-x-3 rounded-lg transition-colors duration-200 shadow-sm">
+                  <ShieldCheck className="w-4 h-4 text-[#D9222A] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs uppercase tracking-wider text-stone-900 dark:text-white font-normal font-display">
+                      {t.about.pillar3Title}
+                    </h4>
+                    <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-1 font-normal">
+                      {t.about.pillar3Desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/about"
+                  className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.2em] text-[#D9222A] hover:text-[#F03542] transition-colors font-normal"
+                >
+                  <span>{t.about.readFull}</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Architectural Visual */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative h-[420px] md:h-[480px] w-full overflow-hidden border border-stone-200 dark:border-white/10 rounded-xl shadow-md">
+                <Image
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
+                  alt="A-X Engineering Luxury Residence"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 p-5 bg-black/75 backdrop-blur-md border border-white/10 rounded-lg text-white">
+                  <span className="text-[9px] uppercase tracking-widest text-[#FF4455] font-normal block mb-1">
+                    {t.about.upcomingTag}
+                  </span>
+                  <h3 className="font-display text-lg text-white font-normal">
+                    {t.about.upcomingTitle}
+                  </h3>
+                  <p className="text-xs text-stone-300 mt-1 font-normal">
+                    {t.about.upcomingDesc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SELECTED WORKS MASONRY SHOWCASE */}
+      <section className="py-20 md:py-28 bg-[#F7F8FA] dark:bg-[#090A0C] transition-colors duration-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+              <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-normal block mb-2.5">
+                {t.portfolio.tag}
+              </span>
+              <h2 className="font-display text-3xl md:text-5xl text-stone-900 dark:text-white font-normal tracking-tight">
+                {t.portfolio.title}
+              </h2>
+            </div>
+            <p className="text-xs uppercase tracking-[0.18em] text-stone-600 dark:text-stone-400 max-w-sm font-normal">
+              {t.portfolio.desc}
+            </p>
+          </div>
+
+          {/* Masonry Grid with Single-Lane compact filters & solid pill badges */}
+          <ProjectMasonry projects={projects} showFilters={true} limit={6} />
+
+          {/* Bottom link to all projects */}
+          <div className="mt-14 text-center">
+            <Link
+              href="/projects"
+              className="group inline-flex items-center space-x-2.5 pl-4 pr-1.5 py-1.5 border border-stone-300 dark:border-white/20 hover:border-[#D9222A] text-stone-900 dark:text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 bg-white dark:bg-white/5 hover:bg-stone-50 dark:hover:bg-white/10 shadow-sm"
+            >
+              <span>{t.portfolio.viewAll} ({projects.length})</span>
+              <span className="w-5 h-5 rounded-full bg-stone-100 dark:bg-white/10 flex items-center justify-center text-stone-700 dark:text-stone-300 group-hover:bg-[#D9222A] group-hover:text-white transition-colors">
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* DISCIPLINES & SERVICES */}
+      <section id="services" className="py-20 md:py-28 bg-[#F0F2F6] dark:bg-[#0C0D10] border-t border-stone-200 dark:border-white/5 transition-colors duration-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-2xl mb-14">
+            <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-normal block mb-2.5">
+              {t.services.tag}
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl text-stone-900 dark:text-white font-normal tracking-tight">
+              {t.services.title}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <div
+                key={service.number || index}
+                className="group p-7 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/60 transition-all duration-300 flex flex-col justify-between space-y-5 rounded-xl shadow-sm hover:shadow-md"
+              >
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-display text-xl text-stone-500 group-hover:text-[#D9222A] transition-colors font-normal">
+                      {service.number || String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-white/20 group-hover:bg-[#D9222A] transition-colors" />
+                  </div>
+                  <h3 className="font-display text-lg text-white theme-text-heading font-normal group-hover:text-[#D9222A] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-xs text-stone-400 theme-text-body leading-relaxed font-normal">
+                    {service.description}
+                  </p>
+                </div>
+
+                <div className="pt-3.5 border-t border-white/5 theme-border flex flex-wrap gap-1.5">
+                  {service.features?.map((item, i) => (
+                    <span
+                      key={i}
+                      className="text-[11px] font-normal px-2.5 py-1 bg-stone-100 hover:bg-stone-200/80 dark:bg-white/5 dark:hover:bg-white/10 text-stone-700 dark:text-stone-300 border border-stone-200/80 dark:border-white/10 rounded-md transition-colors"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}

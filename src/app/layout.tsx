@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { AppProvider } from '@/context/AppContext'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -9,29 +10,30 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'AX Engineering | Architecture, Engineering & Construction • Gostivar',
+  title: 'A-X Engineering | Architecture Studio & Construction Supervision • Gostivar',
   description:
-    'AX Engineering is an established architectural design, structural engineering, and construction supervision firm based in Gostivar, North Macedonia. Specializing in luxury private residences, commercial projects, and technical audits.',
+    'A-X Engineering is an established architectural design, structural engineering, and construction supervision firm based in Gostivar, North Macedonia. Specializing in luxury private residences, commercial projects, and technical audits.',
   keywords: [
-    'AX Engineering',
+    'A-X Engineering',
     'AX Engineering Gostivar',
     'Architecture Gostivar',
     'Gostivar construction',
+    'Arkitekt Gostivar',
+    'Projektim Gostivar',
+    'Nadzor Gostivar',
+    'Градежен надзор Гостивар',
+    'Архитектура Гостивар',
     'Luxury villa design Macedonia',
-    'Engineering projection office',
-    'Construction site supervision Gostivar',
-    'Static structural calculations',
   ],
-  authors: [{ name: 'AX Engineering' }],
+  authors: [{ name: 'A-X Engineering' }],
   openGraph: {
-    title: 'AX Engineering | Architecture & Construction Excellence',
+    title: 'A-X Engineering | Architecture Studio & Engineering Excellence',
     description: 'Premier architecture, engineering, and luxury residence construction in Gostivar, North Macedonia.',
     type: 'website',
-    locale: 'en_US',
-    siteName: 'AX Engineering',
+    locale: 'sq_MK',
+    siteName: 'A-X Engineering',
   },
 }
-
 
 export default function RootLayout({
   children,
@@ -39,11 +41,34 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen bg-[#0B0B0C] text-[#F5F5F7] flex flex-col selection:bg-[#C5A880] selection:text-black">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="sq" className="light scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                localStorage.removeItem('ax_theme');
+                var theme = localStorage.getItem('ax_theme_v2') || 'light';
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.classList.remove('light');
+                } else {
+                  document.documentElement.classList.add('light');
+                  document.documentElement.classList.remove('dark');
+                }
+              } catch (e) {
+                document.documentElement.classList.add('light');
+              }
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] flex flex-col selection:bg-[#D9222A] selection:text-white transition-colors duration-300">
+        <AppProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AppProvider>
       </body>
     </html>
   )

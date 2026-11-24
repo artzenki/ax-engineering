@@ -1,22 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ArrowUpRight, Lock } from 'lucide-react'
-
-const navLinks = [
-  { name: 'Projects', href: '/projects' },
-  { name: 'Services', href: '/#services' },
-  { name: 'About', href: '/about' },
-  { name: 'Staff', href: '/about#staff' },
-  { name: 'Contact', href: '/contact' },
-]
+import { Menu, X, ArrowRight } from 'lucide-react'
+import { useApp, Language } from '@/context/AppContext'
+import { translations } from '@/translations'
+import { COMPANY_INFO } from '@/data/projectsData'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { language, setLanguage } = useApp()
+  const t = translations[language]
 
   // Do not render regular navbar inside /studio
   if (pathname?.startsWith('/studio')) {
@@ -25,7 +23,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
+      if (window.scrollY > 20) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
@@ -35,121 +33,166 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const navLinks = [
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.projects, href: '/projects' },
+    { name: t.nav.about, href: '/about' },
+    { name: t.nav.contact, href: '/contact' },
+  ]
+
+  const languages: { code: Language; label: string }[] = [
+    { code: 'sq', label: 'SQ' },
+    { code: 'mk', label: 'MK' },
+    { code: 'en', label: 'EN' },
+  ]
+
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#0B0B0C]/90 backdrop-blur-md border-b border-white/10 py-4 shadow-xl'
-            : 'bg-transparent py-6'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="group flex items-center space-x-3">
-            <span className="w-10 h-10 border border-[#C5A880] flex items-center justify-center font-serif text-lg tracking-widest text-[#C5A880] group-hover:bg-[#C5A880] group-hover:text-black transition-all duration-300">
-              AX
-            </span>
-            <div className="flex flex-col">
-              <span className="font-serif tracking-[0.25em] text-sm md:text-base text-white font-medium uppercase">
-                AX Engineering
-              </span>
-              <span className="text-[10px] tracking-[0.3em] text-[#C5A880] uppercase">
-                Gostivar • Architecture
-              </span>
+      <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 transition-all duration-300">
+        <div
+          className={`relative max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 md:px-5 py-2 flex items-center justify-between ${
+            isScrolled
+              ? 'bg-white/95 text-stone-900 shadow-2xl backdrop-blur-md border border-stone-200/80 py-1.5'
+              : 'bg-white text-stone-900 shadow-2xl border border-stone-100 py-2'
+          }`}
+        >
+          {/* Left: Clean Emblem Logo */}
+          <Link href="/" className="group flex items-center shrink-0 z-10">
+            <div className="relative w-8 h-8 md:w-9 md:h-9 shrink-0 flex items-center justify-center p-0.5 rounded-full bg-stone-900 border border-stone-800 shadow-sm">
+              <Image
+                src="/images/logo-dark-theme.png"
+                alt="A-X Engineering Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                priority
+              />
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Dead Center: Desktop Navigation Links (Absolute Dead Center & Light/Regular font weight, no bold) */}
+          <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center space-x-1 pointer-events-auto">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href
+              const isActive =
+                link.href === '/'
+                  ? pathname === '/'
+                  : pathname?.startsWith(link.href)
+
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs tracking-[0.2em] uppercase transition-colors duration-200 relative py-1 ${
+                  className={`text-[13px] font-normal transition-all px-3 py-1.5 rounded-full flex items-center space-x-1.5 ${
                     isActive
-                      ? 'text-[#C5A880]'
-                      : 'text-stone-300 hover:text-white'
+                      ? 'bg-[#F2EDE4] text-stone-950 shadow-inner'
+                      : 'text-stone-600 hover:text-stone-950 hover:bg-stone-100/80'
                   }`}
                 >
-                  {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#C5A880]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D9222A] shrink-0" />
                   )}
+                  <span>{link.name}</span>
                 </Link>
               )
             })}
-
-            {/* Direct Studio CMS Access */}
-            <Link
-              href="/studio"
-              className="flex items-center space-x-1.5 text-[11px] tracking-wider uppercase text-stone-400 hover:text-[#C5A880] px-3 py-1.5 border border-stone-800 hover:border-[#C5A880]/50 rounded transition-all"
-              title="Open Sanity CMS Studio"
-            >
-              <Lock className="w-3 h-3 text-[#C5A880]" />
-              <span>CMS Studio</span>
-            </Link>
           </nav>
 
-          {/* Right Action */}
-          <div className="hidden lg:flex items-center space-x-5">
+          {/* Right Controls: Language Switcher + Theme Toggle + Compact CTA */}
+          <div className="hidden sm:flex items-center space-x-3 shrink-0 z-10">
+            {/* Language Switcher Capsule [SQ | MK | EN] */}
+            <div className="flex items-center bg-stone-100 p-0.5 rounded-full border border-stone-200">
+              {languages.map((l) => {
+                const isCurrent = language === l.code
+                return (
+                  <button
+                    key={l.code}
+                    onClick={() => setLanguage(l.code)}
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-normal tracking-wide uppercase transition-all duration-200 ${
+                      isCurrent
+                        ? 'bg-[#D9222A] text-white shadow-sm'
+                        : 'text-stone-600 hover:text-stone-900'
+                    }`}
+                    aria-label={`Switch language to ${l.label}`}
+                  >
+                    {l.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Smaller CTA Button (regular font weight, no bold) */}
             <Link
               href="/contact"
-              className="group relative inline-flex items-center space-x-2 text-xs uppercase tracking-[0.2em] px-5 py-2.5 bg-[#C5A880] text-black font-medium hover:bg-white transition-all duration-300"
+              className="group inline-flex items-center space-x-2 pl-3.5 pr-1.5 py-1 bg-[#D9222A] hover:bg-[#F03542] text-white text-[11px] font-normal rounded-full transition-all duration-300 shadow-md shadow-[#D9222A]/20"
             >
-              <span>Inquire</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span>{t.nav.inquire}</span>
+              <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-stone-200 hover:text-white p-2"
-            aria-label="Toggle Navigation"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Right Controls: Lang + Hamburger */}
+          <div className="flex sm:hidden items-center space-x-2 z-10">
+            {/* Quick Lang Switch */}
+            <div className="flex items-center bg-stone-100 p-0.5 rounded-full border border-stone-200">
+              {languages.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => setLanguage(l.code)}
+                  className={`px-1.5 py-0.5 rounded-full text-[9px] font-normal ${
+                    language === l.code
+                      ? 'bg-[#D9222A] text-white'
+                      : 'text-stone-600'
+                  }`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Menu Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1 text-stone-800 hover:text-black rounded-md"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0B0B0C] pt-24 px-8 pb-12 flex flex-col justify-between lg:hidden border-b border-stone-800">
-          <div className="flex flex-col space-y-6">
+        <div className="fixed inset-0 z-40 bg-white/98 text-stone-900 dark:bg-[#090A0C]/98 dark:text-white backdrop-blur-xl pt-24 px-6 pb-8 flex flex-col justify-between sm:hidden transition-colors duration-200">
+          <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-lg uppercase tracking-[0.2em] font-serif text-stone-300 hover:text-[#C5A880] transition-colors py-2 border-b border-stone-800"
+                className="text-base font-normal text-stone-800 dark:text-stone-200 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors py-2 border-b border-stone-200 dark:border-stone-800"
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              href="/studio"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center space-x-2 text-sm uppercase tracking-widest text-[#C5A880] py-2"
-            >
-              <Lock className="w-4 h-4" />
-              <span>Sanity CMS Studio</span>
-            </Link>
           </div>
 
-          <div className="pt-8 border-t border-stone-800 flex flex-col space-y-4">
-            <p className="text-xs text-stone-400 tracking-wider">
-              Bulevard Braka Ginovski, Gostivar
-            </p>
-            <p className="text-xs text-[#C5A880]">contact@axengineering.mk</p>
+          <div className="pt-6 border-t border-stone-200 dark:border-stone-800 flex flex-col space-y-3">
+            <div className="text-xs text-stone-500 dark:text-stone-400">
+              <p className="font-normal text-stone-800 dark:text-stone-300">Bulevard Braka Ginovski, Gostivar</p>
+              <p className="text-[#D9222A] mt-0.5">{COMPANY_INFO.mobile}</p>
+            </div>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-3 bg-[#C5A880] text-black uppercase tracking-widest text-xs font-semibold"
+              className="group w-full py-2 pl-4 pr-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] font-normal rounded-full flex items-center justify-center space-x-2 shadow-lg"
             >
-              Start Consultation
+              <span>{t.nav.inquire}</span>
+              <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white">
+                <ArrowRight className="w-3 h-3" />
+              </span>
             </Link>
           </div>
         </div>

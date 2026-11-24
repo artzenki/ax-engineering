@@ -6,6 +6,7 @@ import {
   featuredProjectsQuery,
   teamMembersQuery,
   servicesQuery,
+  siteSettingsQuery,
 } from './queries'
 import {
   PROJECTS_DATA,
@@ -136,5 +137,42 @@ export async function getTeamMembers(): Promise<TeamMemberItem[]> {
   }
   return TEAM_MEMBERS_DATA
 }
+
+export interface SiteSettingsData {
+  heroImage?: string
+  heroImageAlt?: string
+  companyName?: string
+  tagline?: string
+  location?: string
+  address?: string
+  phone?: string
+  email?: string
+  workingHours?: string
+}
+
+export async function getSiteSettings(): Promise<SiteSettingsData | null> {
+  try {
+    if (projectId && projectId !== 'demo-project-id') {
+      const settings = await client.fetch(siteSettingsQuery)
+      if (settings) {
+        return {
+          heroImage: getImageUrl(settings.heroImage, 2000) || undefined,
+          heroImageAlt: settings.heroImageAlt || undefined,
+          companyName: settings.companyName,
+          tagline: settings.tagline,
+          location: settings.location,
+          address: settings.address,
+          phone: settings.phone,
+          email: settings.email,
+          workingHours: settings.workingHours,
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Sanity siteSettings fetch skipped:', err)
+  }
+  return null
+}
+
 
 

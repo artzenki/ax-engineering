@@ -3,8 +3,10 @@
 import { useState, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react'
+import { ArrowUpRight, MapPin } from 'lucide-react'
 import { ProjectItem, CATEGORIES } from '@/data/projectsData'
+import { useApp } from '@/context/AppContext'
+import { translations } from '@/translations'
 
 interface ProjectMasonryProps {
   projects: ProjectItem[]
@@ -20,6 +22,8 @@ export default function ProjectMasonry({
   limit,
 }: ProjectMasonryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory)
+  const { language } = useApp()
+  const t = translations[language]
 
   // Filter projects
   const filteredProjects = useMemo(() => {
@@ -54,26 +58,27 @@ export default function ProjectMasonry({
 
   return (
     <div className="w-full">
-      {/* Quick Filters on top */}
+      {/* Quick Filters on top - Compact single-lane design */}
       {showFilters && (
-        <div className="mb-12 flex flex-wrap items-center justify-start gap-2 md:gap-3 border-b border-white/10 pb-6">
+        <div className="mb-8 flex flex-wrap items-center justify-start gap-1.5 md:gap-2 border-b border-stone-200 dark:border-white/10 pb-4">
           {CATEGORIES.map((cat) => {
             const count = categoryCounts[cat.id] || 0
             if (count === 0 && cat.id !== 'all') return null
             const isActive = selectedCategory === cat.id
+            const translatedLabel = t.portfolio.categories[cat.id] || cat.label
 
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`text-xs uppercase tracking-[0.2em] px-4 py-2 transition-all duration-200 border ${
+                className={`text-[12px] font-normal px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap border ${
                   isActive
-                    ? 'border-[#C5A880] bg-[#C5A880] text-black font-semibold shadow-md'
-                    : 'border-white/10 text-stone-400 hover:text-white hover:border-white/30 bg-[#121214]'
+                    ? 'border-[#D9222A] bg-[#D9222A] text-white shadow-md shadow-[#D9222A]/25'
+                    : 'bg-white dark:bg-[#141518] text-stone-700 dark:text-stone-300 border-stone-200 dark:border-white/10 hover:text-stone-950 dark:hover:text-white hover:border-[#D9222A]/40 shadow-sm'
                 }`}
               >
-                <span>{cat.label}</span>
-                <span className={`ml-2 text-[10px] ${isActive ? 'text-black/70' : 'text-stone-500'}`}>
+                <span>{translatedLabel}</span>
+                <span className={`ml-1.5 text-[10px] ${isActive ? 'text-white/80' : 'text-stone-500 dark:text-stone-400'}`}>
                   ({count})
                 </span>
               </button>
@@ -82,92 +87,103 @@ export default function ProjectMasonry({
         </div>
       )}
 
-      {/* Masonry Grid */}
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+      {/* Masonry / Responsive Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {filteredProjects.map((project, index) => {
-          // Determine height / aspect based on project metadata or index pattern for masonry rhythm
-          const isTall = project.aspectRatio === 'tall' || index % 3 === 1
-          const isWide = project.aspectRatio === 'wide' || index % 4 === 0
+          const isFeatured = index === 0 || index === 4
+          const heightClass = isFeatured ? 'h-[500px] md:h-[540px]' : 'h-[420px] md:h-[460px]'
+          const categoryName = t.portfolio.categories[project.categorySlug] || project.category
 
           return (
-            <div
-              key={project.id || project.slug}
-              className="break-inside-avoid group relative overflow-hidden bg-[#151518] border border-white/5 hover:border-[#C5A880]/50 transition-all duration-300"
+            <article
+              key={project.id}
+              className={`project-card group relative flex flex-col justify-end overflow-hidden border border-stone-200/90 dark:border-white/10 bg-[#111215] rounded-xl transition-all duration-500 hover:border-[#D9222A]/60 hover:shadow-2xl hover:shadow-[#D9222A]/15 shadow-md ${heightClass}`}
             >
-              <Link href={`/projects/${project.slug}`} className="block relative">
-                {/* Image Container */}
-                <div
-                  className={`relative w-full overflow-hidden ${
-                    isTall ? 'h-[460px]' : isWide ? 'h-[320px]' : 'h-[380px]'
-                  }`}
-                >
-                  <Image
-                    src={project.heroImage}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    priority={index < 2}
-                  />
+              {/* Project Image */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src={project.heroImage}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover object-center filter brightness-[0.75] contrast-[1.05] transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-[0.85]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-95 transition-opacity duration-300 group-hover:opacity-90" />
+              </div>
 
-                  {/* Dark subtle gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              {/* Hover quick badge */}
+              <div className="absolute top-4 right-4 z-20 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                <span className="w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:border-[#D9222A] group-hover:bg-[#D9222A] transition-colors shadow-lg">
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
 
-                  {/* Top Badge */}
-                  <div className="absolute top-4 left-4 flex items-center space-x-2">
-                    <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-black/60 backdrop-blur-md text-[#C5A880] border border-white/10 font-medium">
-                      {project.category}
-                    </span>
-                    {project.status && (
-                      <span className="text-[9px] uppercase tracking-widest px-2 py-0.5 bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/30">
-                        {project.status}
-                      </span>
-                    )}
+              {/* Top Tags - SOLID COLOR & SMALLER */}
+              <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-1.5">
+                <span className="text-[9px] uppercase tracking-wider px-2.5 py-0.5 bg-[#141518] text-white font-medium rounded-full shadow-md border border-white/10">
+                  {categoryName}
+                </span>
+                {project.featured && (
+                  <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-[#D9222A] text-white font-semibold rounded-full shadow-md">
+                    Signature
+                  </span>
+                )}
+              </div>
+
+              {/* Bottom Content Card */}
+              <div className="relative z-10 p-5 md:p-6 flex flex-col justify-end w-full">
+                <div className="space-y-1.5">
+                  <div className="project-card-meta flex items-center space-x-2 text-[10px] tracking-wider">
+                    <MapPin className="w-3 h-3 text-[#FF4455]" />
+                    <span>{project.location}</span>
+                    <span className="opacity-60">•</span>
+                    <span>{project.year}</span>
                   </div>
 
-                  {/* Bottom Information */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
-                    <div className="flex items-center justify-between text-[11px] text-stone-400 uppercase tracking-widest mb-1.5">
-                      <span className="flex items-center space-x-1">
-                        <MapPin className="w-3 h-3 text-[#C5A880]" />
-                        <span>{project.location}</span>
-                      </span>
-                      <span>{project.year}</span>
-                    </div>
+                  <h3 className="font-display text-lg md:text-xl font-normal group-hover:text-[#FF4455] transition-colors leading-snug">
+                    {project.title}
+                  </h3>
 
-                    <h3 className="font-serif text-xl md:text-2xl text-white font-light group-hover:text-[#C5A880] transition-colors leading-snug">
-                      {project.title}
-                    </h3>
-
-                    {project.area && (
-                      <p className="text-xs text-stone-400 mt-1 font-mono tracking-wider">
-                        {project.area}
-                      </p>
-                    )}
-
-                    {/* Reveal hover arrow */}
-                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/15 text-xs uppercase tracking-widest text-stone-300 group-hover:text-[#C5A880] transition-colors">
-                      <span className="text-[10px]">Inspect Project</span>
-                      <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </div>
-                  </div>
+                  <p className="text-xs font-light line-clamp-2 leading-relaxed">
+                    {project.shortDescription}
+                  </p>
                 </div>
+
+                {/* Scope & Link */}
+                <div className="mt-3.5 flex items-center justify-between pt-2.5 border-t border-white/15 text-[11px] uppercase tracking-wider group-hover:text-[#FF4455] transition-colors">
+                  <span className="project-card-meta text-[10px] tracking-wider">
+                    {project.area || project.client}
+                  </span>
+                  <span className="project-card-inspect inline-flex items-center space-x-1 font-medium">
+                    <span>{t.portfolio.inspect}</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+
+              {/* Full Card Link overlay */}
+              <Link
+                href={`/projects/${project.slug}`}
+                className="absolute inset-0 z-30"
+                aria-label={`View details for ${project.title}`}
+              >
+                <span className="sr-only">View project</span>
               </Link>
-            </div>
+            </article>
           )
         })}
       </div>
 
       {filteredProjects.length === 0 && (
-        <div className="text-center py-24 border border-dashed border-white/10">
-          <p className="text-stone-400 font-serif text-lg">
+        <div className="py-20 text-center border border-white/5 bg-[#111215] rounded-xl">
+          <p className="text-stone-400 text-xs tracking-wider uppercase">
             No projects found in this discipline.
           </p>
           <button
             onClick={() => setSelectedCategory('all')}
-            className="mt-4 text-xs uppercase tracking-widest text-[#C5A880] underline"
+            className="mt-3 text-xs uppercase tracking-widest text-[#D9222A] underline"
           >
-            Show all projects
+            {t.portfolio.viewAll}
           </button>
         </div>
       )}

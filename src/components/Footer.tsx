@@ -1,97 +1,109 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowUpRight, MapPin, Phone, Mail, Clock, ShieldCheck } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, MapPin, Phone, Mail, Clock, ShieldCheck } from 'lucide-react'
 import { COMPANY_INFO } from '@/data/projectsData'
+import { useApp } from '@/context/AppContext'
+import { translations } from '@/translations'
 
 export default function Footer() {
   const pathname = usePathname()
+  const { language } = useApp()
+  const t = translations[language]
 
   if (pathname?.startsWith('/studio')) {
     return null
   }
 
   return (
-    <footer className="bg-[#070708] text-stone-300 border-t border-white/5 pt-20 pb-12">
+    <footer className="bg-[#F0F2F6] dark:bg-[#060608] text-stone-700 dark:text-stone-300 border-t border-stone-200 dark:border-white/5 pt-16 pb-12 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Top Pre-Footer Call to Action */}
-        <div className="pb-16 border-b border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div className="pb-12 border-b border-stone-200 dark:border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] block mb-3">
-              Commence Your Vision
+            <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-2">
+              {t.footer.tag}
             </span>
-            <h2 className="font-serif text-3xl md:text-5xl text-white font-light tracking-tight max-w-xl">
-              Let us shape your next architectural landmark.
+            <h2 className="font-display text-2xl md:text-4xl text-stone-900 dark:text-white font-normal tracking-tight max-w-xl leading-tight">
+              {t.footer.title}
             </h2>
           </div>
           <div>
             <Link
               href="/contact"
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-[#C5A880] hover:bg-white text-black font-medium uppercase tracking-[0.2em] text-xs transition-all duration-300"
+              className="group inline-flex items-center space-x-2.5 pl-4 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/20"
             >
-              <span>Schedule Initial Meeting</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>{t.footer.scheduleMeeting}</span>
+              <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </Link>
           </div>
         </div>
 
         {/* Main Footer Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-12 border-b border-stone-200 dark:border-white/10">
           {/* Col 1: Identity */}
-          <div className="space-y-5">
+          <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <span className="w-9 h-9 border border-[#C5A880] flex items-center justify-center font-serif text-base text-[#C5A880]">
-                AX
-              </span>
-              <span className="font-serif tracking-[0.2em] text-base text-white uppercase">
-                AX Engineering
-              </span>
+              <div className="w-9 h-9 shrink-0 p-0.5 rounded-full border border-stone-300 dark:border-stone-800 bg-stone-900 flex items-center justify-center">
+                <Image
+                  src="/images/logo-dark-theme.png"
+                  alt="A-X Engineering Logo"
+                  width={34}
+                  height={34}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-display tracking-[0.16em] text-sm text-stone-900 dark:text-white uppercase font-bold">
+                  A-X Engineering
+                </span>
+                <span className="text-[9px] tracking-[0.24em] text-[#D9222A] uppercase font-semibold">
+                  Architecture Studio
+                </span>
+              </div>
             </div>
-            <p className="text-xs text-stone-400 leading-relaxed max-w-xs">
-              Licensed architectural projection office, structural engineering, and construction supervision based in Gostivar. Specializing in high-end private residences and bespoke developments.
+            <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed max-w-xs">
+              {t.footer.description}
             </p>
-            <div className="flex items-center space-x-2 text-[11px] text-[#C5A880] tracking-wider uppercase">
-              <ShieldCheck className="w-4 h-4 text-[#C5A880]" />
-              <span>Certified Technical Audit Office</span>
+            <div className="flex items-center space-x-2 text-[10px] text-[#D9222A] tracking-wider uppercase font-medium">
+              <ShieldCheck className="w-4 h-4 text-[#D9222A]" />
+              <span>{t.footer.certifiedAudit}</span>
             </div>
           </div>
 
           {/* Col 2: Navigation */}
           <div>
-            <h3 className="text-xs uppercase tracking-[0.25em] text-white font-medium mb-6">
-              Navigation
+            <h3 className="text-xs uppercase tracking-[0.22em] text-stone-900 dark:text-white font-semibold mb-5 font-display">
+              {t.footer.navigationTitle}
             </h3>
-            <ul className="space-y-3 text-xs tracking-wider">
+            <ul className="space-y-2.5 text-xs tracking-wider">
               <li>
-                <Link href="/projects" className="text-stone-400 hover:text-[#C5A880] transition-colors">
-                  Selected Works & Gallery
+                <Link href="/projects" className="text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors">
+                  {t.nav.projects}
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="text-stone-400 hover:text-[#C5A880] transition-colors">
-                  Disciplines & Scope
+                <Link href="/#services" className="text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors">
+                  {t.nav.services}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-stone-400 hover:text-[#C5A880] transition-colors">
-                  Studio Philosophy & History
+                <Link href="/about" className="text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors">
+                  {t.nav.about}
                 </Link>
               </li>
               <li>
-                <Link href="/about#staff" className="text-stone-400 hover:text-[#C5A880] transition-colors">
-                  Engineering Leadership & Staff
+                <Link href="/about#staff" className="text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors">
+                  {t.nav.staff}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-stone-400 hover:text-[#C5A880] transition-colors">
-                  Direct Inquiries
-                </Link>
-              </li>
-              <li>
-                <Link href="/studio" className="text-[#C5A880] hover:text-white transition-colors flex items-center space-x-1">
-                  <span>Client CMS Studio</span>
-                  <ArrowUpRight className="w-3 h-3" />
+                <Link href="/contact" className="text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors">
+                  {t.nav.contact}
                 </Link>
               </li>
             </ul>
@@ -99,54 +111,54 @@ export default function Footer() {
 
           {/* Col 3: Capabilities */}
           <div>
-            <h3 className="text-xs uppercase tracking-[0.25em] text-white font-medium mb-6">
-              Expertise
+            <h3 className="text-xs uppercase tracking-[0.22em] text-stone-900 dark:text-white font-semibold mb-5 font-display">
+              {t.footer.expertiseTitle}
             </h3>
-            <ul className="space-y-3 text-xs tracking-wider text-stone-400">
-              <li>Luxury Residential Architecture</li>
-              <li>Signature AX Residences</li>
-              <li>Seismic & Static Engineering</li>
-              <li>Licensed Site Supervision (Nadzor)</li>
-              <li>Interior Living & Spatial Styling</li>
-              <li>Legal Permitting & Technical Audit</li>
+            <ul className="space-y-2.5 text-xs tracking-wider text-stone-600 dark:text-stone-400">
+              <li>Vila & Rezidenca Private</li>
+              <li>A-X Signature Residences</li>
+              <li>Projektim Statik & Sizmik</li>
+              <li>Mbikëqyrje e Licencuar (Nadzor)</li>
+              <li>Dizajn Enterieri & 3D Render</li>
+              <li>Audit Teknik & Legalizim</li>
             </ul>
           </div>
 
           {/* Col 4: Location & Contact */}
           <div>
-            <h3 className="text-xs uppercase tracking-[0.25em] text-white font-medium mb-6">
-              Headquarters
+            <h3 className="text-xs uppercase tracking-[0.22em] text-stone-900 dark:text-white font-semibold mb-5 font-display">
+              {t.footer.headquartersTitle}
             </h3>
-            <div className="space-y-4 text-xs text-stone-400">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
+            <div className="space-y-3.5 text-xs text-stone-600 dark:text-stone-400">
+              <div className="flex items-start space-x-2.5">
+                <MapPin className="w-4 h-4 text-[#D9222A] shrink-0 mt-0.5" />
                 <span>{COMPANY_INFO.address}</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-[#C5A880] shrink-0" />
-                <span>{COMPANY_INFO.phone} / {COMPANY_INFO.mobile}</span>
+              <div className="flex items-center space-x-2.5">
+                <Phone className="w-4 h-4 text-[#D9222A] shrink-0" />
+                <span>{COMPANY_INFO.mobile}</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-[#C5A880] shrink-0" />
-                <span className="text-white">{COMPANY_INFO.contactEmail}</span>
+              <div className="flex items-center space-x-2.5">
+                <Mail className="w-4 h-4 text-[#D9222A] shrink-0" />
+                <span className="text-stone-900 dark:text-white font-medium">{COMPANY_INFO.contactEmail}</span>
               </div>
-              <div className="flex items-start space-x-3">
-                <Clock className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
-                <span>{COMPANY_INFO.workingHours}</span>
+              <div className="flex items-start space-x-2.5">
+                <Clock className="w-4 h-4 text-[#D9222A] shrink-0 mt-0.5" />
+                <span>{t.contact.hoursValue}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Strip */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-stone-500 tracking-wider">
-          <p>© {new Date().getFullYear()} AX Engineering Gostivar. All rights reserved.</p>
-          <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <span>Architecture</span>
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[10px] text-stone-500 dark:text-stone-500 tracking-wider">
+          <p>© {new Date().getFullYear()} A-X Engineering Architecture Studio. {t.footer.rights}</p>
+          <div className="flex items-center space-x-4 mt-3 md:mt-0">
+            <span>Arkitekturë</span>
             <span>•</span>
-            <span>Engineering</span>
+            <span>Inxhinieri</span>
             <span>•</span>
-            <span>Construction</span>
+            <span>Mbikëqyrje</span>
           </div>
         </div>
       </div>
