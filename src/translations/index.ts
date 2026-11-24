@@ -99,6 +99,41 @@ export interface TranslationDictionary {
     headquartersTitle: string
     rights: string
   }
+  projectDetail: {
+    backToProjects: string
+    breadcrumbHome: string
+    breadcrumbProjects: string
+    underConstruction: string
+    completed: string
+    requestQuoteBtn: string
+    viewGalleryBtn: string
+    floors: string
+    surfaceArea: string
+    typology: string
+    parking: string
+    deliveryYear: string
+    overviewTag: string
+    overviewTitle: string
+    servicesScopeTag: string
+    servicesScopeTitle: string
+    constructionTag: string
+    constructionTitle: string
+    constructionSubtitle: string
+    overallProgress: string
+    currentPhase: string
+    stageCompleted: string
+    stageCurrent: string
+    stageUpcoming: string
+    galleryTag: string
+    galleryTitle: string
+    allPhotos: string
+    exterior: string
+    interior: string
+    constructionTab: string
+    renderTab: string
+    prevProject: string
+    nextProject: string
+  }
 }
 
 export const translations: Record<Language, TranslationDictionary> = {
@@ -213,6 +248,41 @@ export const translations: Record<Language, TranslationDictionary> = {
       headquartersTitle: 'Selia Qendrore',
       rights: 'Të gjitha të drejtat e rezervuara.',
     },
+    projectDetail: {
+      backToProjects: 'Kthehu te Projektet',
+      breadcrumbHome: 'Ballina',
+      breadcrumbProjects: 'Projektet',
+      underConstruction: 'Në Ndërtim e Sipër',
+      completed: 'Projekt i Përfunduar',
+      requestQuoteBtn: 'Kërko Ofertë të Ngjashme',
+      viewGalleryBtn: 'Shiko Galerinë',
+      floors: 'Kate',
+      surfaceArea: 'Sipërfaqja',
+      typology: 'Tipologjia',
+      parking: 'Parkimi',
+      deliveryYear: 'Viti / Dorëzimi',
+      overviewTag: 'Koncepti Arkitekturor',
+      overviewTitle: 'Koreografia Hapësinore & Integriteti Strukturor',
+      servicesScopeTag: 'Fusha e Veprimit',
+      servicesScopeTitle: 'Shërbimet e Realizuara nga A-X',
+      constructionTag: 'Ndjekja e Punimeve në Kantier',
+      constructionTitle: 'Progresi i Ndërtimit & Fazat Teknike',
+      constructionSubtitle: 'Mbikëqyrje e drejtpërdrejtë dhe raporte të përditësuara nga inxhinierët e kantierit.',
+      overallProgress: 'Progresi i Përgjithshëm',
+      currentPhase: 'Faza Aktuale',
+      stageCompleted: 'Përfunduar',
+      stageCurrent: 'Në Zhvillim',
+      stageUpcoming: 'Në Pritje',
+      galleryTag: 'Dokumentimi Vizual',
+      galleryTitle: 'Galeria e Projektit & Detajet',
+      allPhotos: 'Të Gjitha',
+      exterior: 'Eksterier',
+      interior: 'Enterier',
+      constructionTab: 'Kantieri',
+      renderTab: 'Render 3D',
+      prevProject: 'Projekti Paraprak',
+      nextProject: 'Projekti i Radhës',
+    },
   },
   mk: {
     nav: {
@@ -325,6 +395,41 @@ export const translations: Record<Language, TranslationDictionary> = {
       headquartersTitle: 'Седиште',
       rights: 'Сите права се задржани.',
     },
+    projectDetail: {
+      backToProjects: 'Назад кон Проекти',
+      breadcrumbHome: 'Почетна',
+      breadcrumbProjects: 'Проекти',
+      underConstruction: 'Во Градба',
+      completed: 'Завршен Проект',
+      requestQuoteBtn: 'Побарајте Понуда',
+      viewGalleryBtn: 'Види Галерија',
+      floors: 'Катност',
+      surfaceArea: 'Површина',
+      typology: 'Типологија',
+      parking: 'Паркинг',
+      deliveryYear: 'Година / Рок',
+      overviewTag: 'Архитектонски Концепт',
+      overviewTitle: 'Просторна Кореографија & Статичка Сигурност',
+      servicesScopeTag: 'Опсег на Изведба',
+      servicesScopeTitle: 'Извршени Услуги од A-X',
+      constructionTag: 'Следење на Градежните Работи',
+      constructionTitle: 'Градежен Прогрес & Технички Фази',
+      constructionSubtitle: 'Директен стручен надзор и редовни теренски извештаи од нашите инженери.',
+      overallProgress: 'Вкупен Прогрес',
+      currentPhase: 'Тековна Фаза',
+      stageCompleted: 'Завршено',
+      stageCurrent: 'Во Тек',
+      stageUpcoming: 'Претстојно',
+      galleryTag: 'Визуелна Документација',
+      galleryTitle: 'Галерија на Проектот',
+      allPhotos: 'Сите',
+      exterior: 'Екстериер',
+      interior: 'Ентериер',
+      constructionTab: 'Градилиште',
+      renderTab: '3D Рендер',
+      prevProject: 'Претходен Проект',
+      nextProject: 'Следен Проект',
+    },
   },
   en: {
     nav: {
@@ -436,6 +541,41 @@ export const translations: Record<Language, TranslationDictionary> = {
       expertiseTitle: 'Expertise',
       headquartersTitle: 'Headquarters',
       rights: 'All rights reserved.',
+    },
+    projectDetail: {
+      backToProjects: 'Back to Projects',
+      breadcrumbHome: 'Home',
+      breadcrumbProjects: 'Projects',
+      underConstruction: 'Under Construction',
+      completed: 'Completed Project',
+      requestQuoteBtn: 'Request Similar Offer',
+      viewGalleryBtn: 'View Gallery',
+      floors: 'Floors',
+      surfaceArea: 'Surface Area',
+      typology: 'Typology',
+      parking: 'Parking',
+      deliveryYear: 'Year / Handover',
+      overviewTag: 'Architectural Concept',
+      overviewTitle: 'Spatial Choreography & Structural Integrity',
+      servicesScopeTag: 'Scope of Services',
+      servicesScopeTitle: 'Services Rendered by A-X',
+      constructionTag: 'On-Site Construction Tracking',
+      constructionTitle: 'Construction Progress & Technical Milestones',
+      constructionSubtitle: 'Direct technical site supervision and verified reports from our licensed engineers.',
+      overallProgress: 'Overall Progress',
+      currentPhase: 'Current Phase',
+      stageCompleted: 'Completed',
+      stageCurrent: 'In Progress',
+      stageUpcoming: 'Upcoming',
+      galleryTag: 'Visual Documentation',
+      galleryTitle: 'Project Gallery & Perspectives',
+      allPhotos: 'All',
+      exterior: 'Exterior',
+      interior: 'Interior',
+      constructionTab: 'On Site',
+      renderTab: '3D Render',
+      prevProject: 'Previous Project',
+      nextProject: 'Next Project',
     },
   },
 }

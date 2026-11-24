@@ -1,6 +1,24 @@
+export interface ConstructionStage {
+  name: string
+  name_mk?: string
+  name_en?: string
+  status: 'completed' | 'current' | 'upcoming'
+  date?: string
+}
+
+export interface ProjectGalleryItem {
+  url: string
+  caption?: string
+  category?: 'all' | 'exterior' | 'interior' | 'construction' | 'render'
+  aspect?: 'tall' | 'wide' | 'square'
+  alt?: string
+}
+
 export interface ProjectItem {
   id: string
   title: string
+  title_mk?: string
+  title_en?: string
   slug: string
   category: string
   categorySlug: string
@@ -8,18 +26,31 @@ export interface ProjectItem {
   location: string
   year: string
   area: string
+  floors?: string
+  apartments?: string
+  parkingSpaces?: string
+  energyClass?: string
   status: 'Completed' | 'Under Construction' | 'In Concept'
+  isUnderConstruction?: boolean
+  progressPercent?: number
+  currentPhase?: string
+  currentPhase_mk?: string
+  currentPhase_en?: string
+  expectedCompletion?: string
+  stages?: ConstructionStage[]
   featured: boolean
   heroImage: string
   aspectRatio?: 'tall' | 'wide' | 'square'
   shortDescription: string
+  shortDescription_mk?: string
+  shortDescription_en?: string
   fullDescription: string
+  fullDescription_mk?: string
+  fullDescription_en?: string
   servicesDone: string[]
-  gallery: {
-    url: string
-    caption: string
-    aspect?: 'tall' | 'wide' | 'square'
-  }[]
+  servicesDone_mk?: string[]
+  servicesDone_en?: string[]
+  gallery: ProjectGalleryItem[]
   metrics?: {
     label: string
     value: string
