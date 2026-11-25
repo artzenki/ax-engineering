@@ -126,7 +126,7 @@ export default function ServiceDetailClient({
           answer_en: 'For bespoke residences, conceptual drafting spans 2-3 weeks, while comprehensive execution dossiers conclude within 30-45 business days.',
         },
         {
-          question: 'A është e detyrueshme mbikëqyrja inxhinierike (nadzor)?',
+          question: 'A është e detyrueshme mbikëqyrja inxhinierike e ndërtimit?',
           question_mk: 'Дали стручниот градежен надзор е законски задолжителен?',
           question_en: 'Is licensed construction supervision legally mandated?',
           answer: 'Po, sipas Ligjit për Ndërtim në RMV, çdo objekt kërkon inxhinier të licencuar të mbikëqyrjes për të verifikuar armaturën, betonin dhe për të vulosur librin e ndërtimit.',

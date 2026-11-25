@@ -18,7 +18,7 @@ export default function TermsClient() {
       sections: [
         {
           title: '1. Fusha e Shërbimeve',
-          text: 'A-X Engineering ofron shërbime të projektimit arkitektonik, llogaritjes statike, mbikëqyrjes profesionale të ndërtimit (nadzor), mbikëqyrjes teknike dhe auditimeve strukturore në përputhje me standardet e Republikës së Maqedonisë së Veriut dhe Eurocode.',
+          text: 'A-X Engineering ofron shërbime të projektimit arkitektonik, llogaritjes statike, mbikëqyrjes profesionale të ndërtimit, mbikëqyrjes teknike dhe auditimeve strukturore në përputhje me standardet e Republikës së Maqedonisë së Veriut dhe Eurocode.',
         },
         {
           title: '2. Pronësia Intelektuale',

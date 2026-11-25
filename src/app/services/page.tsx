@@ -6,7 +6,7 @@ import { getServices } from '@/sanity/lib/dataService'
 
 export const metadata: Metadata = {
   title: 'Fushat e Veprimtarisë & Shërbimet | A-X Engineering',
-  description: 'Shërbimet profesionale inxhinierike dhe arkitekturore të A-X Engineering: Projektim, Statikë, Mbikëqyrje Ndërtimi (Nadzor), dhe Enterier.',
+  description: 'Shërbimet profesionale inxhinierike dhe arkitekturore të A-X Engineering: Projektim, Statikë, Mbikëqyrje Ndërtimi, dhe Enterier.',
 }
 
 export default async function ServicesPage() {

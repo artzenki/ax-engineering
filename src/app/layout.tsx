@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ax-engineering.vercel.app'),
   title: {
-    default: 'A-X Engineering | Studio Arkitekture & Nadzor • Gostivar',
+    default: 'A-X Engineering | Studio Arkitekture & Mbikëqyrje • Gostivar',
     template: '%s | A-X Engineering',
   },
   description:
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     'Gostivar construction',
     'Arkitekt Gostivar',
     'Projektim Gostivar',
-    'Nadzor Gostivar',
+    'Mbikëqyrje Gostivar',
     'Mbikëqyrje ndërtimi Gostivar',
     'Градежен надзор Гостивар',
     'Архитектура Гостивар',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'A-X Engineering | Studio Arkitekture & Nadzor • Gostivar',
+    title: 'A-X Engineering | Studio Arkitekture & Mbikëqyrje • Gostivar',
     description:
       'Premier architectural design, structural engineering, and certified site supervision in Gostivar, North Macedonia.',
     images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&h=630&q=85'],

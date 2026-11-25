@@ -132,7 +132,7 @@ export default function Footer() {
               <li>Vila & Rezidenca Private</li>
               <li>A-X Signature Residences</li>
               <li>Projektim Statik & Sizmik</li>
-              <li>Mbikëqyrje e Licencuar (Nadzor)</li>
+              <li>Mbikëqyrje e Licencuar</li>
               <li>Dizajn Enterieri & 3D Render</li>
               <li>Audit Teknik & Legalizim</li>
             </ul>

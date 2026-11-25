@@ -207,7 +207,7 @@ export default function QuoteStepperClient() {
     },
     {
       id: 'supervision',
-      name: language === 'sq' ? 'Mbikëqyrje e Licencuar (Nadzor)' : language === 'mk' ? 'Градежен Надзор' : 'Licensed Site Supervision (Nadzor)',
+      name: language === 'sq' ? 'Mbikëqyrje e Licencuar e Ndërtimit' : language === 'mk' ? 'Градежен Надзор' : 'Licensed Site Supervision',
       desc: language === 'sq' ? 'Audit teknik, kontroll i cilësisë së betonit dhe libër zyrtar ndërtimi.' : language === 'mk' ? 'Техничка контрола на бетон, градежен дневник и ревизија.' : 'Comprehensive structural audit, testing verification, and legal sign-offs.',
       icon: ShieldCheck,
     },

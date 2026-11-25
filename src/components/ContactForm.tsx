@@ -126,7 +126,7 @@ export default function ContactForm() {
           >
             <option value="Vila Luksoze / Rezidencë Private">Vila Luksoze / Rezidencë Private</option>
             <option value="Objekt Afarist / Qendër Tregtare">Objekt Afarist / Qendër Tregtare</option>
-            <option value="Mbikëqyrje Ndërtimi (Nadzor)">Mbikëqyrje Ndërtimi (Nadzor)</option>
+            <option value="Mbikëqyrje Ndërtimi">Mbikëqyrje Ndërtimi</option>
             <option value="Projektim Statik & Sizmik">Projektim Statik & Sizmik</option>
             <option value="A-X Signature Residences">A-X Signature Residences</option>
             <option value="Enterier & Dizajn Hapësinor">Enterier & Dizajn Hapësinor</option>
