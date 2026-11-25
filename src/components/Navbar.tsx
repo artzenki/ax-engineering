@@ -191,8 +191,8 @@ export default function Navbar() {
             aria-hidden="true"
           />
 
-          {/* Floating Rounded Card Menu - Matching Header Width (max-w-7xl mx-auto px-4 md:px-8) */}
-          <div className="fixed top-[70px] md:top-[76px] left-0 right-0 z-50 px-4 md:px-8 pointer-events-none lg:hidden">
+          {/* Floating Rounded Card Menu - Matching Header Width with floating distance gap */}
+          <div className="fixed top-[82px] sm:top-[84px] md:top-[88px] left-0 right-0 z-50 px-4 md:px-8 pointer-events-none lg:hidden">
             <div className="max-w-7xl mx-auto pointer-events-auto">
               <div className="bg-white/98 dark:bg-[#0E0F12]/98 backdrop-blur-2xl border border-stone-200/90 dark:border-white/10 rounded-[28px] p-5 sm:p-6 shadow-2xl shadow-black/30 flex flex-col space-y-4 animate-in fade-in slide-in-from-top-3 duration-300">
                 {/* Navigation Links */}
