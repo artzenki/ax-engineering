@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, ArrowRight } from 'lucide-react'
+import PageHeader from '@/components/PageHeader'
+import MainCtaBanner from '@/components/MainCtaBanner'
 import { TeamMemberItem } from '@/data/projectsData'
 import { useApp } from '@/context/AppContext'
 import { translations } from '@/translations'
@@ -12,21 +14,20 @@ export default function AboutClient({ team }: { team: TeamMemberItem[] }) {
   const t = translations[language]
 
   return (
-    <div className="pt-32 pb-24 md:pb-36 bg-[#F7F8FA] dark:bg-[#090A0C] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Header */}
-        <div className="max-w-3xl mb-14">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-2.5">
-            {t.about.tag}
-          </span>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-stone-900 dark:text-white font-normal tracking-tight leading-tight">
-            {t.about.title}
-          </h1>
-          <p className="text-stone-600 dark:text-stone-400 text-xs sm:text-sm md:text-base mt-3 leading-relaxed font-light">
-            {t.about.p1}
-          </p>
-        </div>
+    <div className="bg-[var(--bg-main)] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
+      {/* Architectural Page Header matching single services */}
+      <PageHeader
+        tag={t.about.tag}
+        title={t.about.title}
+        subtitle={t.about.p1}
+        heroImage="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=85"
+        breadcrumbs={[
+          { label: t.nav.home, href: '/' },
+          { label: t.nav.about },
+        ]}
+      />
 
+      <div className="pt-20 pb-24 max-w-7xl mx-auto px-6 md:px-12">
         {/* Narrative & Image Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-24">
           <div className="lg:col-span-7 space-y-5">
@@ -184,29 +185,15 @@ export default function AboutClient({ team }: { team: TeamMemberItem[] }) {
           </div>
         </section>
 
-        {/* CTA BANNER */}
-        <div className="p-7 md:p-12 bg-white dark:bg-[#121316] border border-stone-200 dark:border-[#D9222A]/30 flex flex-col md:flex-row items-center justify-between gap-6 rounded-xl shadow-md">
-          <div>
-            <span className="text-xs uppercase tracking-widest text-[#D9222A] block mb-1.5 font-medium">
-              Bashkëpunoni me A-X Engineering
-            </span>
-            <h3 className="font-display text-xl md:text-3xl text-stone-900 dark:text-white font-normal">
-              Po planifikoni vilën tuaj private apo kompleks afarist?
-            </h3>
-            <p className="text-xs text-stone-600 dark:text-stone-400 mt-1.5 max-w-xl">
-              Na vizitoni në zyrën tonë në Gostivar për të analizuar mundësitë e parcelës dhe konceptin arkitektonik.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="group inline-flex items-center space-x-2.5 pl-4 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white font-normal text-[12px] md:text-[13px] rounded-full transition-all shrink-0 shadow-lg shadow-[#D9222A]/20"
-          >
-            <span>{t.footer.scheduleMeeting}</span>
-            <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-            </span>
-          </Link>
-        </div>
+        {/* BLACK CTA BANNER */}
+        <MainCtaBanner
+          tag="BASHKËPUNIMI YNË"
+          heading="Po Planifikoni Vilën Tuaj Apo një Kompleks Afarist?"
+          description="Na vizitoni në zyrën tonë në Gostivar për të analizuar mundësitë e parcelës, parametrat urbanistikë dhe konceptin arkitektonik."
+          buttonText="Fillo Llogaritjen e Ofertës"
+          buttonHref="/kerko-oferte"
+          className="!px-0 !py-0 mt-20"
+        />
       </div>
     </div>
   )

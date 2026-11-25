@@ -1,6 +1,8 @@
 'use client'
 
 import ProjectMasonry from '@/components/ProjectMasonry'
+import PageHeader from '@/components/PageHeader'
+import MainCtaBanner from '@/components/MainCtaBanner'
 import { ProjectItem } from '@/data/projectsData'
 import { useApp } from '@/context/AppContext'
 import { translations } from '@/translations'
@@ -10,23 +12,32 @@ export default function ProjectsClient({ projects }: { projects: ProjectItem[] }
   const t = translations[language]
 
   return (
-    <div className="pt-32 pb-24 md:pb-36 bg-[#F7F8FA] dark:bg-[#090A0C] min-h-screen transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Page Header */}
-        <div className="max-w-3xl mb-12">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-2.5">
-            {t.portfolio.tag}
-          </span>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-stone-900 dark:text-white font-normal tracking-tight">
-            {t.portfolio.title}
-          </h1>
-          <p className="text-stone-600 dark:text-stone-400 text-xs sm:text-sm md:text-base mt-3 leading-relaxed font-light">
-            {t.portfolio.desc}
-          </p>
-        </div>
+    <div className="bg-[var(--bg-main)] min-h-screen transition-colors duration-200">
+      {/* Architectural Page Header matching single services */}
+      <PageHeader
+        tag={t.portfolio.tag}
+        title={t.portfolio.title}
+        subtitle={t.portfolio.desc}
+        heroImage="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=85"
+        breadcrumbs={[
+          { label: t.nav.home, href: '/' },
+          { label: t.nav.projects },
+        ]}
+      />
 
+      <div className="pt-16 pb-24 max-w-7xl mx-auto px-6 md:px-12">
         {/* Masonry Grid with Filters */}
         <ProjectMasonry projects={projects} showFilters={true} />
+
+        {/* Black CTA Banner */}
+        <MainCtaBanner
+          tag="INVESTIMI YNË I PËRBASHKËT"
+          heading="Dëshironi një Rezidencë apo Kompleks të Këtij Standardi?"
+          description="Inxhinierët tanë në Gostivar ofrojnë mbështetje të plotë nga skicat e para deri te çertifikimi i ndërtimit."
+          buttonText="Kërko Ofertë për Projektin Tuaj"
+          buttonHref="/kerko-oferte"
+          className="!px-0 !py-0 mt-20"
+        />
       </div>
     </div>
   )

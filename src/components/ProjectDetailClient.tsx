@@ -26,6 +26,7 @@ import {
 import { ProjectItem, ProjectGalleryItem } from '@/data/projectsData'
 import { useApp } from '@/context/AppContext'
 import { translations } from '@/translations'
+import MainCtaBanner from '@/components/MainCtaBanner'
 
 interface ProjectDetailClientProps {
   project: ProjectItem
@@ -593,48 +594,161 @@ export default function ProjectDetailClient({
 
       {/* 7. PREV / NEXT PROJECT NAVIGATION */}
       {project.showAdjacentNav !== false && (prevProject || nextProject) && (
-        <section className="py-16 border-t border-stone-200 dark:border-white/10 max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {prevProject && (
+        <section className="py-20 border-t border-stone-200 dark:border-white/10 max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <span className="text-[11px] font-mono tracking-widest text-[#D9222A] uppercase block mb-1">
+                {language === 'sq' ? 'Eksploroni Më Shumë' : language === 'mk' ? 'Истражете Повеќе' : 'Explore More'}
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl text-stone-900 dark:text-white font-normal">
+                {language === 'sq' ? 'Projektet e Radhës & Arkiva' : language === 'mk' ? 'Следни Проекти & Архива' : 'Adjacent & Related Projects'}
+              </h3>
+            </div>
+            <Link
+              href="/projects"
+              className="hidden sm:inline-flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-stone-600 dark:text-stone-400 hover:text-[#D9222A] dark:hover:text-[#D9222A] transition-colors"
+            >
+              <span>{t.portfolio.viewAll}</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:-rotate-45 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {prevProject ? (
               <Link
                 href={`/projects/${prevProject.slug}`}
-                className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between rounded-2xl shadow-sm"
+                className="group relative h-64 sm:h-72 rounded-3xl overflow-hidden border border-stone-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-500 hover:border-[#D9222A]/50 hover:shadow-2xl hover:shadow-[#D9222A]/10"
               >
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
-                    ← {td.prevProject}
+                {/* Background image with overlay */}
+                <Image
+                  src={prevProject.heroImage || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'}
+                  alt={prevProject.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 group-hover:via-black/50 transition-colors" />
+
+                {/* Top Badge */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/10 backdrop-blur-md text-white border border-white/10">
+                    <ArrowLeft className="w-3 h-3 text-[#D9222A]" />
+                    {td.prevProject}
                   </span>
-                  <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
-                    {prevProject.title}
+                  <span className="text-[11px] text-white/60 font-mono">
+                    {prevProject.year || '2024'}
+                  </span>
+                </div>
+
+                {/* Bottom Content */}
+                <div className="relative z-10 flex items-end justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#D9222A] font-mono uppercase tracking-wider block mb-1">
+                      {prevProject.category}
+                    </span>
+                    <h4 className="font-display text-xl sm:text-2xl text-white font-normal group-hover:text-[#D9222A] transition-colors leading-snug">
+                      {language === 'mk' && prevProject.title_mk ? prevProject.title_mk : language === 'en' && prevProject.title_en ? prevProject.title_en : prevProject.title}
+                    </h4>
+                  </div>
+
+                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-[#D9222A] group-hover:border-[#D9222A] transition-all flex-shrink-0 ml-4">
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                href="/projects"
+                className="group relative h-64 sm:h-72 rounded-3xl overflow-hidden border border-stone-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between bg-stone-900/60 transition-all duration-500 hover:border-[#D9222A]/50"
+              >
+                <div className="relative z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/10 backdrop-blur-md text-white border border-white/10">
+                    {t.portfolio.tag}
+                  </span>
+                  <h4 className="font-display text-xl sm:text-2xl text-white font-normal mt-4">
+                    {t.portfolio.viewAll}
                   </h4>
-                  <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
-                    {prevProject.category}
+                  <p className="text-xs text-white/60 mt-2 max-w-xs font-normal">
+                    {language === 'sq' ? 'Eksploroni të gjitha vilat, ambientet afariste dhe projektimet tona.' : language === 'mk' ? 'Истражете ги сите вили, деловни простори и наши дизајни.' : 'Browse our full catalog of residential and commercial works.'}
                   </p>
+                </div>
+                <div className="relative z-10 flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D9222A]">
+                  <span>{t.portfolio.inspect}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
                 </div>
               </Link>
             )}
 
-            {nextProject && (
+            {nextProject ? (
               <Link
                 href={`/projects/${nextProject.slug}`}
-                className="group p-6 bg-white dark:bg-[#111215] border border-stone-200 dark:border-white/5 hover:border-[#D9222A]/50 transition-all flex items-center justify-between text-right rounded-2xl shadow-sm ml-auto w-full md:w-auto md:min-w-[320px]"
+                className="group relative h-64 sm:h-72 rounded-3xl overflow-hidden border border-stone-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-500 hover:border-[#D9222A]/50 hover:shadow-2xl hover:shadow-[#D9222A]/10"
               >
-                <div className="ml-auto">
-                  <span className="text-[10px] uppercase tracking-widest text-[#D9222A] block mb-1 font-normal">
-                    {td.nextProject} →
+                {/* Background image with overlay */}
+                <Image
+                  src={nextProject.heroImage || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'}
+                  alt={nextProject.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 group-hover:via-black/50 transition-colors" />
+
+                {/* Top Badge */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/10 backdrop-blur-md text-white border border-white/10">
+                    {td.nextProject}
+                    <ArrowRight className="w-3 h-3 text-[#D9222A]" />
                   </span>
-                  <h4 className="font-display text-lg text-stone-900 dark:text-white group-hover:text-[#D9222A] transition-colors font-normal">
-                    {nextProject.title}
+                  <span className="text-[11px] text-white/60 font-mono">
+                    {nextProject.year || '2024'}
+                  </span>
+                </div>
+
+                {/* Bottom Content */}
+                <div className="relative z-10 flex items-end justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#D9222A] font-mono uppercase tracking-wider block mb-1">
+                      {nextProject.category}
+                    </span>
+                    <h4 className="font-display text-xl sm:text-2xl text-white font-normal group-hover:text-[#D9222A] transition-colors leading-snug">
+                      {language === 'mk' && nextProject.title_mk ? nextProject.title_mk : language === 'en' && nextProject.title_en ? nextProject.title_en : nextProject.title}
+                    </h4>
+                  </div>
+
+                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-[#D9222A] group-hover:border-[#D9222A] transition-all flex-shrink-0 ml-4">
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:-rotate-45" />
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                href="/projects"
+                className="group relative h-64 sm:h-72 rounded-3xl overflow-hidden border border-stone-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between bg-stone-900/60 transition-all duration-500 hover:border-[#D9222A]/50"
+              >
+                <div className="relative z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/10 backdrop-blur-md text-white border border-white/10">
+                    {t.portfolio.tag}
+                  </span>
+                  <h4 className="font-display text-xl sm:text-2xl text-white font-normal mt-4">
+                    {t.portfolio.viewAll}
                   </h4>
-                  <p className="text-xs text-stone-500 dark:text-stone-500 mt-0.5 font-normal">
-                    {nextProject.category}
+                  <p className="text-xs text-white/60 mt-2 max-w-xs font-normal">
+                    {language === 'sq' ? 'Eksploroni të gjitha vilat, ambientet afariste dhe projektimet tona.' : language === 'mk' ? 'Истражете ги сите вили, деловни простори и наши дизајни.' : 'Browse our full catalog of residential and commercial works.'}
                   </p>
+                </div>
+                <div className="relative z-10 flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D9222A]">
+                  <span>{t.portfolio.inspect}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
                 </div>
               </Link>
             )}
           </div>
         </section>
       )}
+
+      {/* 8. MASTER BLACK CTA */}
+      <MainCtaBanner />
     </article>
   )
 }

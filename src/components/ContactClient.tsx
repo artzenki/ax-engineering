@@ -2,6 +2,8 @@
 
 import { MapPin, Phone, Mail, Clock, MessageSquare, ShieldCheck } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
+import PageHeader from '@/components/PageHeader'
+import MainCtaBanner from '@/components/MainCtaBanner'
 import { COMPANY_INFO } from '@/data/projectsData'
 import { useApp } from '@/context/AppContext'
 import { translations } from '@/translations'
@@ -11,21 +13,20 @@ export default function ContactClient() {
   const t = translations[language]
 
   return (
-    <div className="pt-32 pb-24 md:pb-36 bg-[#F7F8FA] dark:bg-[#090A0C] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Page Header */}
-        <div className="max-w-3xl mb-14">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-2.5">
-            {t.contact.tag}
-          </span>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-stone-900 dark:text-white font-normal tracking-tight leading-tight">
-            {t.contact.title}
-          </h1>
-          <p className="text-stone-600 dark:text-stone-400 text-xs sm:text-sm md:text-base mt-3 leading-relaxed font-light">
-            {t.contact.subtitle}
-          </p>
-        </div>
+    <div className="bg-[var(--bg-main)] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
+      {/* Architectural Page Header matching single services */}
+      <PageHeader
+        tag={t.contact.tag}
+        title={t.contact.title}
+        subtitle={t.contact.subtitle}
+        heroImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=85"
+        breadcrumbs={[
+          { label: t.nav.home, href: '/' },
+          { label: t.nav.contact },
+        ]}
+      />
 
+      <div className="pt-20 pb-24 max-w-7xl mx-auto px-6 md:px-12">
         {/* 2-Column Contact Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: Office Details */}
@@ -152,6 +153,16 @@ export default function ContactClient() {
             <ContactForm />
           </div>
         </div>
+
+        {/* BLACK CTA BANNER */}
+        <MainCtaBanner
+          tag="LLOGARITËSI INTERAKTIV"
+          heading="Dëshironi një Vlerësim të Shpejtë në 4 Hapa?"
+          description="Përdorni kalkulatorin tonë interaktiv për të konfiguruar sipërfaqen, katet dhe paketat inxhinierike të projektit tuaj."
+          buttonText="Hap Formularin e Ofertës"
+          buttonHref="/kerko-oferte"
+          className="!px-0 !py-0 mt-20"
+        />
       </div>
     </div>
   )

@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, ShieldCheck, Compass } from 'lucide-react'
 import ProjectMasonry from '@/components/ProjectMasonry'
+import AnimatedCounter from '@/components/AnimatedCounter'
+import MainCtaBanner from '@/components/MainCtaBanner'
 import { ProjectItem, ServiceItem, SITE_STATS } from '@/data/projectsData'
 import { useApp } from '@/context/AppContext'
 import { translations } from '@/translations'
@@ -143,21 +145,36 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
           </div>
         </div>
 
-        {/* Quick stats ribbon pinned to bottom of 100vh hero */}
-        <div className="hero-stats-fade relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-          {SITE_STATS.map((stat, i) => {
-            const labels = [t.hero.stat1, t.hero.stat2, t.hero.stat3, t.hero.stat4]
-            return (
-              <div key={i} className="space-y-0.5">
-                <span className="hero-stat-number font-display text-xl md:text-2xl !text-white font-normal tracking-tight">
-                  {stat.value}
-                </span>
-                <p className="hero-stat-label text-[10px] uppercase tracking-wider !text-[#D4D4D8] font-normal">
-                  {labels[i] || stat.label}
-                </p>
-              </div>
-            )
-          })}
+        {/* Quick stats ribbon pinned to bottom of 100vh hero with animated counting integers */}
+        <div className="hero-stats-fade relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+          <AnimatedCounter
+            value={18}
+            suffix="+"
+            label={t.hero.stat2 || 'Vite Përvojë Inxhinierike'}
+            delayMs={2200}
+            durationMs={1600}
+          />
+          <AnimatedCounter
+            value={140}
+            suffix="+"
+            label={t.hero.stat1 || 'Projekte të Realizuara'}
+            delayMs={2300}
+            durationMs={1800}
+          />
+          <AnimatedCounter
+            value={85000}
+            suffix=" m²"
+            label={t.hero.stat3 || 'Metra Katrorë të Ndërtuar'}
+            delayMs={2400}
+            durationMs={2000}
+          />
+          <AnimatedCounter
+            value={100}
+            suffix="%"
+            label={t.hero.stat4 || 'Arkitektë & Inxhinierë në Ekip'}
+            delayMs={2500}
+            durationMs={1500}
+          />
         </div>
       </section>
 
@@ -338,6 +355,15 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
           </div>
         </div>
       </section>
+
+      {/* MAIN BLACK CTA BANNER */}
+      <MainCtaBanner
+        tag="BASHKËPUNIMI YNË"
+        heading="Keni një Projekt në Mendje?"
+        description="Konsultohuni me inxhinierët tanë në Gostivar për një vlerësim të saktë teknik dhe financiar."
+        buttonText="Fillo Llogaritjen e Ofertës"
+        buttonHref="/kerko-oferte"
+      />
     </div>
   )
 }

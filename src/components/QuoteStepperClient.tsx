@@ -19,8 +19,10 @@ import {
   Phone,
   MessageCircle,
   HelpCircle,
-  CheckCircle2
+  CheckCircle2,
 } from 'lucide-react'
+import PageHeader from '@/components/PageHeader'
+import MainCtaBanner from '@/components/MainCtaBanner'
 import { useApp } from '@/context/AppContext'
 import { COMPANY_INFO } from '@/data/projectsData'
 
@@ -31,10 +33,11 @@ export default function QuoteStepperClient() {
 
   // Form State
   const [projectType, setProjectType] = useState('residential')
+  const [customProjectType, setCustomProjectType] = useState('')
   const [area, setArea] = useState<number>(350)
   const [floors, setFloors] = useState('P + 1')
   const [location, setLocation] = useState('Gostivar')
-  const [plotStatus, setPlotStatus] = useState('free_plot')
+  const [customLocation, setCustomLocation] = useState('')
   const [selectedServices, setSelectedServices] = useState<string[]>([
     'architecture',
     'statics',
@@ -60,11 +63,6 @@ export default function QuoteStepperClient() {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   // Localized copy
   const t = {
     sq: {
@@ -82,6 +80,7 @@ export default function QuoteStepperClient() {
       nextBtn: 'Vazhdo te Hapi Tjetër',
       prevBtn: 'Kthehu Prapa',
       submitBtn: 'Dërgo Kërkesën për Ofertë',
+      submitWhatsAppBtn: 'Dërgo Direkt në WhatsApp',
       summaryTitle: 'Përmbledhja e Kërkesës',
       summaryType: 'Tipologjia:',
       summaryArea: 'Sipërfaqja:',
@@ -91,8 +90,10 @@ export default function QuoteStepperClient() {
       successTitle: 'Kërkesa u Dërgua me Sukses!',
       successDesc: 'Faleminderit! Inxhinierët tanë të A-X Engineering në Gostivar po shqyrtojnë parametrat tuaj dhe do t\'ju kontaktojnë brenda 24 orëve me një vlerësim të detajuar.',
       directCall: 'Na Telefononi Drejtpërdrejt',
-      chatWhatsApp: 'Kontakto në WhatsApp',
+      chatWhatsApp: 'Dërgo Parametrat në WhatsApp',
       backHome: 'Kthehu në Ballinë',
+      customTypePlaceholder: 'p.sh. Sallë industriale, renovim fasade, pishinë & spa...',
+      customLocationPlaceholder: 'Shënoni qytetin, fshatin ose shtetin...',
     },
     mk: {
       tag: 'ИНТЕРАКТИВЕН КАЛКУЛАТОР ЗА ПРОЕКТ',
@@ -109,6 +110,7 @@ export default function QuoteStepperClient() {
       nextBtn: 'Следен Чекор',
       prevBtn: 'Назад',
       submitBtn: 'Испрати Барање за Понуда',
+      submitWhatsAppBtn: 'Испрати Директно на WhatsApp',
       summaryTitle: 'Преглед на Барањето',
       summaryType: 'Тип:',
       summaryArea: 'Површина:',
@@ -118,8 +120,10 @@ export default function QuoteStepperClient() {
       successTitle: 'Барањето е успешно примено!',
       successDesc: 'Ви благодариме! Нашите инженери од Гостивар ќе ве контактираат во рок од 24 часа со детална понуда.',
       directCall: 'Јавете се директно',
-      chatWhatsApp: 'Пишете на WhatsApp',
+      chatWhatsApp: 'Испрати преку WhatsApp',
       backHome: 'Назад кон Почетна',
+      customTypePlaceholder: 'пр. Индустриска сала, реновирање фасада, базен...',
+      customLocationPlaceholder: 'Внесете го градот или локацијата...',
     },
     en: {
       tag: 'INTERACTIVE PROJECT CALCULATOR',
@@ -136,6 +140,7 @@ export default function QuoteStepperClient() {
       nextBtn: 'Proceed to Next Step',
       prevBtn: 'Back',
       submitBtn: 'Submit Proposal Request',
+      submitWhatsAppBtn: 'Send Directly via WhatsApp',
       summaryTitle: 'Project Scope Summary',
       summaryType: 'Typology:',
       summaryArea: 'Calculated Area:',
@@ -145,8 +150,10 @@ export default function QuoteStepperClient() {
       successTitle: 'Proposal Request Received!',
       successDesc: 'Thank you! Our senior architectural engineering partners in Gostivar are reviewing your parameters and will respond within 24 hours.',
       directCall: 'Direct Phone Line',
-      chatWhatsApp: 'Chat via WhatsApp',
+      chatWhatsApp: 'Send Details via WhatsApp',
       backHome: 'Return to Homepage',
+      customTypePlaceholder: 'e.g. Industrial warehouse, facade retrofit, pool & spa...',
+      customLocationPlaceholder: 'Enter city, village, or country...',
     },
   }[language] || {
     tag: 'LLOGARITËSI INTERAKTIV I PROJEKTIT',
@@ -163,6 +170,7 @@ export default function QuoteStepperClient() {
     nextBtn: 'Vazhdo te Hapi Tjetër',
     prevBtn: 'Kthehu Prapa',
     submitBtn: 'Dërgo Kërkesën për Ofertë',
+    submitWhatsAppBtn: 'Dërgo Direkt në WhatsApp',
     summaryTitle: 'Përmbledhja e Kërkesës',
     summaryType: 'Tipologjia:',
     summaryArea: 'Sipërfaqja:',
@@ -172,34 +180,42 @@ export default function QuoteStepperClient() {
     successTitle: 'Kërkesa u Dërgua me Sukses!',
     successDesc: 'Faleminderit! Inxhinierët tanë të A-X Engineering në Gostivar po shqyrtojnë parametrat tuaj dhe do t\'ju kontaktojnë brenda 24 orëve me një vlerësim të detajuar.',
     directCall: 'Na Telefononi Drejtpërdrejt',
-    chatWhatsApp: 'Kontakto në WhatsApp',
+    chatWhatsApp: 'Dërgo Parametrat në WhatsApp',
     backHome: 'Kthehu në Ballinë',
+    customTypePlaceholder: 'p.sh. Sallë industriale, renovim fasade, pishinë & spa...',
+    customLocationPlaceholder: 'Shënoni qytetin, fshatin ose shtetin...',
   }
 
   const projectTypes = [
     {
       id: 'residential',
       name: language === 'sq' ? 'Vilë Private Luksoze' : language === 'mk' ? 'Семејна Вила' : 'Luxury Private Villa',
-      desc: language === 'sq' ? 'Rezidenca individuale, vila pushimi me pishinë dhe interier bashkëkohor.' : 'High-end detached residences and private holiday estates.',
+      desc: language === 'sq' ? 'Rezidenca individuale, vila pushimi me pishinë dhe interier bashkëkohor.' : language === 'mk' ? 'Индивидуални резиденции, вили со базен и современ ентериер.' : 'High-end detached residences and private holiday estates.',
       icon: Home,
     },
     {
       id: 'commercial',
       name: language === 'sq' ? 'Ndërtesë Afariste & Komerciale' : language === 'mk' ? 'Деловен Објект' : 'Commercial & Office Building',
-      desc: language === 'sq' ? 'Qendra tregtare, zyra administrative, hotele dhe parqe biznesi.' : 'Corporate headquarters, boutique retail, and hospitality spaces.',
+      desc: language === 'sq' ? 'Qendra tregtare, zyra administrative, hotele dhe parqe biznesi.' : language === 'mk' ? 'Трговски центри, канцеларии, хотели и бизнис паркови.' : 'Corporate headquarters, boutique retail, and hospitality spaces.',
       icon: Briefcase,
     },
     {
       id: 'multi_family',
       name: language === 'sq' ? 'Kompleks Banimi Kolektiv' : language === 'mk' ? 'Станбена Зграда' : 'Multi-Family Residential Complex',
-      desc: language === 'sq' ? 'Ndërtesa shumëkatëshe banimi, garazhe nëntokësore dhe hapësira komunitare.' : 'Mid-to-high rise residential apartments with underground parking.',
+      desc: language === 'sq' ? 'Ndërtesa shumëkatëshe banimi, garazhe nëntokësore dhe hapësira komunitare.' : language === 'mk' ? 'Повеќекатни станбени згради со подземен паркинг.' : 'Mid-to-high rise residential apartments with underground parking.',
       icon: Building2,
     },
     {
       id: 'supervision',
       name: language === 'sq' ? 'Mbikëqyrje e Licencuar (Nadzor)' : language === 'mk' ? 'Градежен Надзор' : 'Licensed Site Supervision (Nadzor)',
-      desc: language === 'sq' ? 'Audit teknik, kontroll i cilësisë së betonit dhe libër zyrtar ndërtimi.' : 'Comprehensive structural audit, testing verification, and legal sign-offs.',
+      desc: language === 'sq' ? 'Audit teknik, kontroll i cilësisë së betonit dhe libër zyrtar ndërtimi.' : language === 'mk' ? 'Техничка контрола на бетон, градежен дневник и ревизија.' : 'Comprehensive structural audit, testing verification, and legal sign-offs.',
       icon: ShieldCheck,
+    },
+    {
+      id: 'other',
+      name: language === 'sq' ? 'Tjetër / Projekt i Veçantë' : language === 'mk' ? 'Друг Специфичен Проект' : 'Other / Custom Project',
+      desc: language === 'sq' ? 'Renovime, ndërtim industrial, pishina, ose kërkesa të personalizuara.' : language === 'mk' ? 'Реновирање, индустриски објекти, базени или посебни барања.' : 'Renovations, industrial hangars, pools, or custom bespoke projects.',
+      icon: Sparkles,
     },
   ]
 
@@ -244,42 +260,81 @@ export default function QuoteStepperClient() {
     'Shkup',
     'Ohër / Strugë',
     'Kërçovë',
-    'Qytet Tjetër në RMV',
     'Kosovë / Rajon',
+    language === 'sq' ? 'Tjetër (Shkruaj Qytetin)' : language === 'mk' ? 'Друго (Напиши Град)' : 'Other (Type City)',
   ]
 
+  const isCustomLocation =
+    location === 'Tjetër (Shkruaj Qytetin)' ||
+    location === 'Друго (Напиши Град)' ||
+    location === 'Other (Type City)'
+
   const selectedTypeName =
-    projectTypes.find((p) => p.id === projectType)?.name || projectType
+    projectType === 'other' && customProjectType.trim()
+      ? customProjectType.trim()
+      : projectTypes.find((p) => p.id === projectType)?.name || projectType
+
+  const selectedLocationName =
+    isCustomLocation && customLocation.trim()
+      ? customLocation.trim()
+      : location
+
+  // WhatsApp Message Formatter
+  const getWhatsAppUrl = () => {
+    const selectedServiceNames = selectedServices
+      .map((id) => serviceOptions.find((o) => o.id === id)?.name)
+      .filter(Boolean)
+      .join(', ')
+
+    const waText = `*KËRKESË PËR OFERTË NGA WEBSITE A-X ENGINEERING*
+---------------------------------------
+👤 *Klienti:* ${formData.name || 'I paemërtuar'}
+📞 *Telefoni:* ${formData.phone || 'Nuk është shënuar'}
+✉️ *Email:* ${formData.email || 'Nuk është shënuar'}
+
+🏛️ *Tipologjia e Objektit:* ${selectedTypeName}
+📐 *Sipërfaqja e Përafërt:* ${area} m²
+🏢 *Katet e Planifikuara:* ${floors}
+📍 *Vendndodhja / Lokacioni:* ${selectedLocationName}
+
+🛠️ *Shërbimet e Kërkuara:*
+${selectedServiceNames || 'Projektim standard'}
+
+📝 *Koment / Shënime Shtesë:*
+${formData.notes || 'Asnjë shënim shtesë'}
+---------------------------------------
+Dërguar nga: https://sheriag.vercel.app/kerko-oferte`
+
+    return `https://wa.me/38970850120?text=${encodeURIComponent(waText)}`
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitted(true)
+  }
+
+  const handleWhatsAppDirect = (e: React.FormEvent) => {
+    e.preventDefault()
+    const url = getWhatsAppUrl()
+    window.open(url, '_blank')
+    setSubmitted(true)
+  }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] pt-32 pb-24 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* HEADER SECTION */}
-        <div className="max-w-3xl mb-12">
-          <div className="mb-4">
-            <Link
-              href="/"
-              className="inline-flex items-center space-x-2 text-xs font-normal text-stone-500 hover:text-[#D9222A] transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>{t.backHome}</span>
-            </Link>
-          </div>
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+      {/* MONUMENTAL ARCHITECTURAL PAGE HEADER */}
+      <PageHeader
+        tag={t.tag}
+        title={t.title}
+        subtitle={t.subtitle}
+        heroImage="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85"
+        breadcrumbs={[
+          { label: language === 'sq' ? 'Ballina' : language === 'mk' ? 'Почетна' : 'Home', href: '/' },
+          { label: t.title },
+        ]}
+      />
 
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D9222A]/10 border border-[#D9222A]/20 text-[#D9222A] text-[11px] font-normal mb-3 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-[#D9222A]" />
-            <span>{t.tag}</span>
-          </div>
-
-          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-normal text-stone-900 dark:text-white tracking-tight leading-[1.08] mb-4">
-            {t.title}
-          </h1>
-
-          <p className="text-sm sm:text-base md:text-lg text-stone-600 dark:text-stone-300 font-normal leading-relaxed">
-            {t.subtitle}
-          </p>
-        </div>
-
+      <div className="pt-16 pb-24 max-w-7xl mx-auto px-6 md:px-12">
         {/* STEPPER PROGRESS INDICATOR */}
         {!submitted && (
           <div className="mb-12">
@@ -334,11 +389,21 @@ export default function QuoteStepperClient() {
               </div>
               <div className="flex justify-between">
                 <span className="text-stone-500">Lokacioni:</span>
-                <span className="font-normal text-stone-900 dark:text-white">{location}</span>
+                <span className="font-normal text-stone-900 dark:text-white">{selectedLocationName}</span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3 bg-[#25D366] hover:bg-[#1ebd5a] text-white rounded-full text-xs font-normal transition-all shadow-lg"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>{t.chatWhatsApp}</span>
+              </a>
+
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3 bg-[#D9222A] hover:bg-stone-900 text-white rounded-full text-xs font-normal transition-all shadow-lg"
@@ -346,6 +411,7 @@ export default function QuoteStepperClient() {
                 <Phone className="w-3.5 h-3.5" />
                 <span>{t.directCall} ({COMPANY_INFO.phone})</span>
               </a>
+
               <Link
                 href="/"
                 className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-stone-300 dark:border-white/20 text-stone-700 dark:text-stone-300 rounded-full text-xs font-normal hover:bg-stone-100 dark:hover:bg-white/10 transition-colors"
@@ -417,6 +483,22 @@ export default function QuoteStepperClient() {
                       )
                     })}
                   </div>
+
+                  {/* CUSTOM OTHER PROJECT TYPE INPUT */}
+                  {projectType === 'other' && (
+                    <div className="pt-3 border-t border-stone-200 dark:border-white/10">
+                      <label className="text-xs uppercase tracking-wider text-stone-700 dark:text-stone-300 block mb-2 font-display">
+                        {language === 'sq' ? 'Përshkruani Llojin e Projektit:' : language === 'mk' ? 'Опишете го типот на објектот:' : 'Specify Custom Project Type:'}
+                      </label>
+                      <input
+                        type="text"
+                        value={customProjectType}
+                        onChange={(e) => setCustomProjectType(e.target.value)}
+                        placeholder={t.customTypePlaceholder}
+                        className="w-full p-3.5 rounded-xl border border-stone-300 dark:border-white/10 bg-white dark:bg-black/40 text-stone-900 dark:text-white text-xs font-normal focus:outline-none focus:border-[#D9222A]"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -445,7 +527,7 @@ export default function QuoteStepperClient() {
 
                     <input
                       type="range"
-                      min={80}
+                      min={25}
                       max={3500}
                       step={25}
                       value={area}
@@ -454,9 +536,9 @@ export default function QuoteStepperClient() {
                     />
 
                     <div className="flex justify-between text-[10px] text-stone-400 font-mono">
-                      <span>80 m² (Rezidencë Kompakte)</span>
-                      <span>850 m² (Vilë e Madhe)</span>
-                      <span>3,500 m²+ (Kompleks)</span>
+                      <span>25 m² ({language === 'sq' ? 'Kompakt' : 'Compact'})</span>
+                      <span>850 m² ({language === 'sq' ? 'Vilë' : 'Villa'})</span>
+                      <span>3,500 m²+ ({language === 'sq' ? 'Kompleks' : 'Complex'})</span>
                     </div>
                   </div>
 
@@ -504,6 +586,22 @@ export default function QuoteStepperClient() {
                         </button>
                       ))}
                     </div>
+
+                    {/* CUSTOM OTHER LOCATION INPUT */}
+                    {isCustomLocation && (
+                      <div className="pt-3">
+                        <label className="text-xs uppercase tracking-wider text-stone-700 dark:text-stone-300 block mb-2 font-display">
+                          {language === 'sq' ? 'Shënoni Qytetin ose Vendndodhjen:' : language === 'mk' ? 'Внесете го градот или локацијата:' : 'Specify City or Location:'}
+                        </label>
+                        <input
+                          type="text"
+                          value={customLocation}
+                          onChange={(e) => setCustomLocation(e.target.value)}
+                          placeholder={t.customLocationPlaceholder}
+                          className="w-full p-3.5 rounded-xl border border-stone-300 dark:border-white/10 bg-white dark:bg-black/40 text-stone-900 dark:text-white text-xs font-normal focus:outline-none focus:border-[#D9222A]"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -634,21 +732,31 @@ export default function QuoteStepperClient() {
                     />
                   </div>
 
-                  <div className="flex items-center space-x-3 pt-2">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                     <button
                       type="button"
                       onClick={handlePrev}
-                      className="px-5 py-3 border border-stone-300 dark:border-white/20 text-stone-700 dark:text-stone-300 rounded-full text-xs font-normal hover:bg-stone-100 dark:hover:bg-white/10 transition-colors flex items-center space-x-2 shrink-0 cursor-pointer"
+                      className="px-5 py-3 border border-stone-300 dark:border-white/20 text-stone-700 dark:text-stone-300 rounded-full text-xs font-normal hover:bg-stone-100 dark:hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 shrink-0 cursor-pointer"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       <span>{t.prevBtn}</span>
                     </button>
+
                     <button
                       type="submit"
                       className="flex-1 py-3.5 bg-[#D9222A] hover:bg-stone-900 text-white rounded-full text-xs font-normal tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl shadow-[#D9222A]/30 cursor-pointer hover:scale-[1.01]"
                     >
                       <span>{t.submitBtn}</span>
                       <Send className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleWhatsAppDirect}
+                      className="px-5 py-3.5 bg-[#25D366] hover:bg-[#1ebd5a] text-white rounded-full text-xs font-normal tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 shadow-xl shadow-[#25D366]/30 cursor-pointer hover:scale-[1.01]"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>{t.submitWhatsAppBtn}</span>
                     </button>
                   </div>
                 </form>
@@ -725,7 +833,7 @@ export default function QuoteStepperClient() {
                     {t.summaryLocation}
                   </span>
                   <p className="font-display text-sm font-normal text-stone-900 dark:text-white">
-                    {location}
+                    {selectedLocationName}
                   </p>
                 </div>
 
@@ -763,6 +871,9 @@ export default function QuoteStepperClient() {
           </div>
         )}
       </div>
+
+      {/* MASTER BLACK CTA BANNER */}
+      <MainCtaBanner />
     </div>
   )
 }
