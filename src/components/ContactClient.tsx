@@ -13,7 +13,16 @@ export default function ContactClient() {
   const t = translations[language]
 
   return (
-    <div className="bg-[var(--bg-main)] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
+    <div className="relative overflow-hidden bg-[var(--bg-main)] min-h-screen text-stone-700 dark:text-stone-300 transition-colors duration-200">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
       {/* Architectural Page Header matching single services */}
       <PageHeader
         tag={t.contact.tag}

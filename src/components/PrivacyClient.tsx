@@ -101,7 +101,16 @@ export default function PrivacyClient() {
   const t = content[language] || content.sq
 
   return (
-    <div className="pt-32 pb-24 max-w-4xl mx-auto px-6 md:px-8">
+    <div className="relative overflow-hidden pt-32 pb-24 max-w-4xl mx-auto px-6 md:px-8">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-28 top-1/4 h-72 w-72 md:h-96 md:w-96 rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[100px] md:blur-[130px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-28 top-2/3 h-72 w-72 md:h-96 md:w-96 rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[100px] md:blur-[130px]"
+        aria-hidden="true"
+      />
       <Link
         href="/"
         className="inline-flex items-center space-x-2 text-xs font-normal text-stone-500 hover:text-[#D9222A] transition-colors mb-8"

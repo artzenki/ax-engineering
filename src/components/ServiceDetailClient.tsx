@@ -198,7 +198,16 @@ export default function ServiceDetailClient({
   const l = labels[language] || labels.sq
 
   return (
-    <article className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+    <article className="relative overflow-hidden min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
       {/* 1. MONUMENTAL HERO SECTION */}
       <section className="relative min-h-[70vh] flex flex-col justify-end pt-32 pb-16 md:pb-20 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">

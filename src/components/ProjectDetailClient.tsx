@@ -89,7 +89,16 @@ export default function ProjectDetailClient({
   const progressPercent = typeof project.progressPercent === 'number' ? project.progressPercent : (isUnderConstruction ? 75 : 100)
 
   return (
-    <article className="bg-[#F7F8FA] dark:bg-[#090A0C] text-stone-700 dark:text-stone-300 transition-colors duration-200">
+    <article className="relative overflow-hidden bg-[#F7F8FA] dark:bg-[#090A0C] text-stone-700 dark:text-stone-300 transition-colors duration-200">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
       {/* 1. MONUMENTAL HERO SHOWCASE (AX Luxury Architecture Aesthetic) */}
       <section className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-between pt-32 pb-16 md:pb-20 overflow-hidden text-white">
         {/* Full-Bleed Showcase Image Background */}

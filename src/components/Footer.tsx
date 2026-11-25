@@ -34,24 +34,22 @@ export default function Footer() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
-        {/* Top Pre-Footer Call to Action */}
-        <div className="pb-12 border-b border-stone-200 dark:border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-2">
-              {t.footer.tag}
-            </span>
-            <h2 className="font-display text-2xl md:text-4xl text-stone-900 dark:text-white font-normal tracking-tight max-w-xl leading-tight">
-              {t.footer.title}
-            </h2>
-          </div>
+        {/* Top Pre-Footer Call to Action - Centered Layout with Enlarged Prominent Button */}
+        <div className="pb-16 border-b border-stone-200 dark:border-white/10 flex flex-col items-center text-center justify-center max-w-3xl mx-auto">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#D9222A] font-medium block mb-3">
+            {t.footer.tag}
+          </span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[42px] text-stone-900 dark:text-white font-normal tracking-tight leading-[1.15] mb-8 max-w-2xl">
+            {t.footer.title}
+          </h2>
           <div>
             <Link
               href="/contact"
-              className="group inline-flex items-center space-x-2.5 pl-4 pr-1.5 py-1.5 bg-[#D9222A] hover:bg-[#F03542] text-white text-[12px] md:text-[13px] font-normal rounded-full transition-all duration-300 shadow-xl shadow-[#D9222A]/20"
+              className="group inline-flex items-center space-x-3.5 pl-7 pr-2.5 py-3 md:py-3.5 bg-[#D9222A] hover:bg-stone-900 text-white text-[13px] md:text-[15px] font-normal rounded-full transition-all duration-300 shadow-2xl shadow-[#D9222A]/30 hover:scale-105"
             >
               <span>{t.footer.scheduleMeeting}</span>
-              <span className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center text-white group-hover:bg-black/35 transition-colors">
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              <span className="w-7 h-7 rounded-full bg-black/25 group-hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </span>
             </Link>
           </div>

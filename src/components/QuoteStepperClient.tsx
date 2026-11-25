@@ -344,7 +344,16 @@ Dërguar nga: https://ax-engineering.vercel.app/kerko-oferte`
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+    <div className="relative overflow-hidden min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[500px] md:w-[500px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[120px] md:blur-[160px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[500px] md:w-[500px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[120px] md:blur-[160px]"
+        aria-hidden="true"
+      />
       {/* MONUMENTAL ARCHITECTURAL PAGE HEADER */}
       <PageHeader
         tag={t.tag}

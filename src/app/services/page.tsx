@@ -13,7 +13,16 @@ export default async function ServicesPage() {
   const services = await getServices()
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] pt-32 pb-24 transition-colors duration-300">
+    <div className="relative overflow-hidden min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] pt-32 pb-24 transition-colors duration-300">
+      {/* Decorative Ambient Red Glowing Ellipses */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[110px] md:blur-[150px]"
+        aria-hidden="true"
+      />
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-16">
