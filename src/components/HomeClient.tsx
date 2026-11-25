@@ -90,9 +90,9 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
           <div className="max-w-lg md:max-w-xl">
             {/* 1. Pill Tag - Opens/expands smoothly, then reveals animated text */}
-            <div className="hero-pill-expand inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/60 backdrop-blur-md mb-6 shadow-xl hover:border-[#D9222A]/60 hover:bg-black/80 transition-all cursor-default">
+            <div className="hero-pill-expand inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-black/60 backdrop-blur-md mb-6 shadow-xl hover:border-[#D9222A]/60 hover:bg-black/80 transition-all cursor-default max-w-full">
               <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A] shrink-0" />
-              <span className="hero-pill-text hero-tag-text text-[10px] uppercase tracking-[0.22em] font-normal">
+              <span className="hero-pill-text hero-tag-text text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.22em] font-normal">
                 {t.hero.tag}
               </span>
             </div>
@@ -146,7 +146,7 @@ export default function HomeClient({ projects, services, heroImage, heroImageAlt
         </div>
 
         {/* Quick stats ribbon pinned to bottom of 100vh hero with animated counting integers */}
-        <div className="hero-stats-fade relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+        <div className="hero-stats-fade relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-4 border-t border-white/15 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 text-left">
           <AnimatedCounter
             value={18}
             suffix="+"

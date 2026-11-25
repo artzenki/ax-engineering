@@ -308,13 +308,36 @@ Dërguar nga: https://sheriag.vercel.app/kerko-oferte`
     return `https://wa.me/38970850120?text=${encodeURIComponent(waText)}`
   }
 
+  const submitToBackend = async () => {
+    try {
+      await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          projectType,
+          customProjectType,
+          area,
+          floors,
+          location,
+          customLocation,
+          services: selectedServices,
+        }),
+      })
+    } catch (e) {
+      console.warn('Backend quote submission note:', e)
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    submitToBackend()
     setSubmitted(true)
   }
 
   const handleWhatsAppDirect = (e: React.FormEvent) => {
     e.preventDefault()
+    submitToBackend()
     const url = getWhatsAppUrl()
     window.open(url, '_blank')
     setSubmitted(true)
