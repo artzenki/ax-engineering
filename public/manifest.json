@@ -1,0 +1,16 @@
+{
+  "name": "A-X Engineering | Studio Arkitekture & Mbikëqyrje Ndërtimore",
+  "short_name": "A-X Engineering",
+  "description": "Studio e projektimit arkitektonik, inxhinierisë strukturore dhe mbikëqyrjes profesionale të ndërtimit në Gostivar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0C0E",
+  "theme_color": "#D9222A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

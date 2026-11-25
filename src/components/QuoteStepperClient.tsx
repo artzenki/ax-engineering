@@ -303,7 +303,7 @@ ${selectedServiceNames || 'Projektim standard'}
 📝 *Koment / Shënime Shtesë:*
 ${formData.notes || 'Asnjë shënim shtesë'}
 ---------------------------------------
-Dërguar nga: https://sheriag.vercel.app/kerko-oferte`
+Dërguar nga: https://ax-engineering.vercel.app/kerko-oferte`
 
     return `https://wa.me/13092598885?text=${encodeURIComponent(waText)}`
   }

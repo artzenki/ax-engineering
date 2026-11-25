@@ -8,12 +8,17 @@ import { AppProvider } from '@/context/AppContext'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#0B0C0E',
 }
 
 export const metadata: Metadata = {
-  title: 'A-X Engineering | Architecture Studio & Construction Supervision • Gostivar',
+  metadataBase: new URL('https://ax-engineering.vercel.app'),
+  title: {
+    default: 'A-X Engineering | Studio Arkitekture & Nadzor • Gostivar',
+    template: '%s | A-X Engineering',
+  },
   description:
-    'A-X Engineering is an established architectural design, structural engineering, and construction supervision firm based in Gostivar, North Macedonia. Specializing in luxury private residences, commercial projects, and technical audits.',
+    'A-X Engineering është studio e themeluar e projektimit arkitektonik, inxhinierisë strukturore dhe mbikëqyrjes profesionale të ndërtimit me seli në Gostivar, Maqedoni e Veriut. Specializuar në vila luksoze, qendra afariste dhe ndërtim cilësor.',
   keywords: [
     'A-X Engineering',
     'AX Engineering Gostivar',
@@ -22,17 +27,52 @@ export const metadata: Metadata = {
     'Arkitekt Gostivar',
     'Projektim Gostivar',
     'Nadzor Gostivar',
+    'Mbikëqyrje ndërtimi Gostivar',
     'Градежен надзор Гостивар',
     'Архитектура Гостивар',
     'Luxury villa design Macedonia',
+    'Vila luksoze Gostivar',
   ],
-  authors: [{ name: 'A-X Engineering' }],
+  authors: [{ name: 'A-X Engineering', url: 'https://ax-engineering.vercel.app' }],
+  creator: 'A-X Engineering',
+  publisher: 'A-X Engineering',
+  manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.svg',
+    apple: [
+      { url: '/apple-icon.svg', type: 'image/svg+xml' },
+    ],
+  },
   openGraph: {
-    title: 'A-X Engineering | Architecture Studio & Engineering Excellence',
-    description: 'Premier architecture, engineering, and luxury residence construction in Gostivar, North Macedonia.',
-    type: 'website',
-    locale: 'sq_MK',
+    title: 'A-X Engineering | Studio Arkitekture & Inxhinieri Strukturore • Gostivar',
+    description:
+      'Premier architectural design, structural engineering, and certified site supervision in Gostivar, North Macedonia.',
+    url: 'https://ax-engineering.vercel.app',
     siteName: 'A-X Engineering',
+    images: [
+      {
+        url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&h=630&q=85',
+        width: 1200,
+        height: 630,
+        alt: 'A-X Engineering Gostivar - Architecture & Engineering Excellence',
+      },
+    ],
+    locale: 'sq_MK',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'A-X Engineering | Studio Arkitekture & Nadzor • Gostivar',
+    description:
+      'Premier architectural design, structural engineering, and certified site supervision in Gostivar, North Macedonia.',
+    images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&h=630&q=85'],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 

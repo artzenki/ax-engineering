@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="axBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141519"/>
+      <stop offset="100%" stop-color="#08080A"/>
+    </linearGradient>
+    <linearGradient id="axRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3843"/>
+      <stop offset="100%" stop-color="#D9222A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="28" fill="url(#axBg)"/>
+  <rect width="126" height="126" x="1" y="1" rx="27" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+  <!-- Letter A -->
+  <path d="M26 94 L45 34 L57 34 L76 94 L63 94 L58 78 L44 78 L39 94 Z M47 67 L55 67 L51 49 Z" fill="#FFFFFF"/>
+
+  <!-- Red Accent Divider -->
+  <rect x="73" y="60" width="10" height="7" rx="3.5" fill="url(#axRed)"/>
+
+  <!-- Letter X -->
+  <path d="M84 34 L96 34 L104 57 L112 34 L124 34 L110 63 L125 94 L113 94 L104 69 L95 94 L83 94 L98 63 Z" fill="#FFFFFF"/>
+
+  <!-- Precision Corner Dot -->
+  <circle cx="106" cy="22" r="3.5" fill="url(#axRed)"/>
+</svg>

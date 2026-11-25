@@ -90,7 +90,7 @@ export default function ProjectDetailClient({
 
   return (
     <article className="bg-[#F7F8FA] dark:bg-[#090A0C] text-stone-700 dark:text-stone-300 transition-colors duration-200">
-      {/* 1. MONUMENTAL HERO SHOWCASE (Sheriag-Style with AX Luxury Architecture Aesthetic) */}
+      {/* 1. MONUMENTAL HERO SHOWCASE (AX Luxury Architecture Aesthetic) */}
       <section className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-between pt-32 pb-16 md:pb-20 overflow-hidden text-white">
         {/* Full-Bleed Showcase Image Background */}
         <div className="absolute inset-0 z-0">
