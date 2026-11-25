@@ -305,7 +305,7 @@ ${formData.notes || 'Asnjë shënim shtesë'}
 ---------------------------------------
 Dërguar nga: https://sheriag.vercel.app/kerko-oferte`
 
-    return `https://wa.me/38970850120?text=${encodeURIComponent(waText)}`
+    return `https://wa.me/13092598885?text=${encodeURIComponent(waText)}`
   }
 
   const submitToBackend = async () => {

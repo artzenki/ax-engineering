@@ -97,7 +97,7 @@ export default function ContactClient() {
               {/* Direct WhatsApp Action */}
               <div className="pt-3 border-t border-stone-200 dark:border-white/10">
                 <a
-                  href={`https://wa.me/38970850120?text=Pershendetje%20A-X%20Engineering,%20deshiroj%20te%20konsultohem%20per%20nje%20projekt`}
+                  href={`https://wa.me/13092598885?text=Pershendetje%20A-X%20Engineering,%20deshiroj%20te%20konsultohem%20per%20nje%20projekt`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2 px-4 bg-emerald-50 hover:bg-emerald-100 dark:bg-[#1B2B1B] dark:hover:bg-[#253D25] border border-emerald-200 dark:border-emerald-700/50 text-emerald-800 dark:text-emerald-300 text-[12px] md:text-[13px] font-normal flex items-center justify-center space-x-2 rounded-full transition-colors shadow-sm"
