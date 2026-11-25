@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ArrowLeft } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import PageHeader from '@/components/PageHeader'
 import { getServices } from '@/sanity/lib/dataService'
 
 export const metadata: Metadata = {
@@ -13,41 +14,29 @@ export default async function ServicesPage() {
   const services = await getServices()
 
   return (
-    <div className="relative overflow-hidden min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] pt-32 pb-24 transition-colors duration-300">
+    <div className="relative overflow-hidden min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+      {/* Architectural Page Header matching all pages - animated title, without pill */}
+      <PageHeader
+        title="Shërbime të Licencuara Inxhinierike"
+        subtitle="Nga skicat e para konceptuale deri te vulosja e librit të ndërtimit dhe çelësat në dorë. Zbuloni disiplinat tona të integruara."
+        heroImage="https://pub-7ce7718d2d8f41d5bc61f3b85a63ce05.r2.dev/sanity/cb0f407ebaa75ed2f2d9f7ae70e2819de85230e5-1600x1067.jpg"
+        breadcrumbs={[
+          { label: 'Ballina', href: '/' },
+          { label: 'Shërbimet' },
+        ]}
+      />
+
       {/* Decorative Ambient Red Glowing Ellipses */}
       <div
-        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
+        className="pointer-events-none absolute -left-32 top-1/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/10 dark:bg-[#D9222A]/15 blur-[110px] md:blur-[150px]"
         aria-hidden="true"
       />
       <div
         className="pointer-events-none absolute -right-32 top-2/3 h-80 w-80 md:h-[480px] md:w-[480px] rounded-full bg-[#D9222A]/8 dark:bg-[#D9222A]/12 blur-[110px] md:blur-[150px]"
         aria-hidden="true"
       />
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <Link
-            href="/"
-            className="inline-flex items-center space-x-2 text-xs font-normal text-stone-500 hover:text-[#D9222A] transition-colors mb-4"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Kthehu në Ballinë</span>
-          </Link>
 
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D9222A]/10 border border-[#D9222A]/20 text-[#D9222A] text-[11px] font-normal mb-3 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-[#D9222A]" />
-            <span>FUSHAT E VEPRIMTARISË</span>
-          </div>
-
-          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-normal text-stone-900 dark:text-white tracking-tight leading-[1.08] mb-4">
-            Shërbime të Licencuara Inxhinierike
-          </h1>
-
-          <p className="text-sm sm:text-base md:text-lg text-stone-600 dark:text-stone-300 font-normal leading-relaxed">
-            Nga skicat e para konceptuale deri te vulosja e librit të ndërtimit dhe çelësat në dorë. Zbuloni disiplinat tona të integruara.
-          </p>
-        </div>
-
+      <div className="pt-16 pb-24 max-w-7xl mx-auto px-6 md:px-12">
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((srv, idx) => {

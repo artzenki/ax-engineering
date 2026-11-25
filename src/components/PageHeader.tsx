@@ -10,7 +10,7 @@ interface BreadcrumbItem {
 }
 
 interface PageHeaderProps {
-  tag: string
+  tag?: string
   title: string
   subtitle?: string
   heroImage?: string
@@ -120,16 +120,18 @@ export default function PageHeader({
 
         <div className="max-w-4xl">
           {/* Tag Capsule - Animated expand like Hero */}
-          <div className="hero-pill-expand inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md text-white text-[10px] md:text-[11px] font-normal uppercase tracking-[0.2em] mb-4 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A]" />
-            <span className="hero-pill-text hero-tag-text">{tag}</span>
-            {badge && (
-              <>
-                <span className="text-white/40">•</span>
-                <span className="text-[#FF4455]">{badge}</span>
-              </>
-            )}
-          </div>
+          {tag && (
+            <div className="hero-pill-expand inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md text-white text-[10px] md:text-[11px] font-normal uppercase tracking-[0.2em] mb-4 shadow-xl">
+              <span className="w-2 h-2 rounded-full bg-[#D9222A] animate-pulse shadow-sm shadow-[#D9222A]" />
+              <span className="hero-pill-text hero-tag-text">{tag}</span>
+              {badge && (
+                <>
+                  <span className="text-white/40">•</span>
+                  <span className="text-[#FF4455]">{badge}</span>
+                </>
+              )}
+            </div>
+          )}
 
           {/* Monumental Animated Headline - Letter-by-letter popping up */}
           <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.08] mb-4 text-white">
