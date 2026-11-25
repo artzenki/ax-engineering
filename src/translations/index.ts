@@ -238,7 +238,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       confidentialNotice: 'Të dhënat tuaja ruhen me konfidencialitet të plotë. Konsultimi fillestar është pa obligim.',
     },
     footer: {
-      tag: 'Filloni Vizonin Tuaj',
+      tag: 'Filloni Vizionin Tuaj',
       title: 'Le të ndërtojmë së bashku objektin tuaj të ardhshëm.',
       scheduleMeeting: 'Caktoni një Takim',
       description: 'Zyrë e licencuar e projektimit arkitektonik, inxhinierisë strukturore dhe mbikëqyrjes së ndërtimit në Gostivar.',
