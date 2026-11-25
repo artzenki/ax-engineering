@@ -475,7 +475,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     shortDescription: 'Independent, uncompromised engineering oversight ensuring structural safety, timeline adherence, and legal compliance.',
     description: 'We safeguard our clients’ investments through rigorous on-site technical supervision and audits. Our certified engineers inspect daily works, verify concrete quality and rebar placement, certify contractor invoices, and ensure total compliance with state construction standards.',
     features: [
-      'Licensed Site Supervision (Gradbena Nadzorna Sluzba)',
+      'Licensed Site Supervision',
       'Static & Material Testing Verification',
       'Contractor Quality and Financial Audits',
       'Final Technical Inspection & Occupancy Approvals',
